@@ -4,6 +4,7 @@ import com.oocl.cultivation.exception.FullParkingException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -11,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
-    private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
 
     @Test
     public void should_have_a_default_capacity_of_10_when_is_initialized_given_no_capacity() {
@@ -147,7 +147,7 @@ class ParkingLotTest {
 
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_ERROR_MESSAGE, exception.getMessage());
+        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test

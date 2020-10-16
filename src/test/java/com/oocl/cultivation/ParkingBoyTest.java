@@ -6,6 +6,11 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import static com.oocl.cultivation.TestConstants.FIRST_ELEMENT;
+import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestConstants.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestConstants.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestConstants.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,13 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingBoyTest {
-
-    private static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";
-    private static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
-    private static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
-
-    private static final int FIRST_ELEMENT = 0;
-    private static final int SECOND_ELEMENT = 1;
 
     @Test
     public void should_return_a_parking_ticket_when_park_given_a_car() {
