@@ -18,11 +18,13 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        ParkingLot parkingLot = parkingLotList.stream().reduce((mostEmptyParkingLot, p) ->
-                (p.getCapacity() - p.getNumberOfParkedCars()) > (mostEmptyParkingLot.getCapacity() - mostEmptyParkingLot.getNumberOfParkedCars())
-                        ? p
-                        : mostEmptyParkingLot)
+        ParkingLot parkingLot = parkingLotList.stream()
+                .reduce((mostEmptyParkingLot, p) ->
+                        (p.countEmptyPositions() > mostEmptyParkingLot.countEmptyPositions())
+                                ? p
+                                : mostEmptyParkingLot)
                 .orElseThrow(FullParkingException::new);
+
         return parkingLot.park(car);
     }
 }
