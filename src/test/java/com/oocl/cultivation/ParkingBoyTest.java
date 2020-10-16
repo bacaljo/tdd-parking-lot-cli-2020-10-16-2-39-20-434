@@ -87,7 +87,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_parking_boy_fetch_given_am_already_used_ticket() {
+    public void should_return_null_when_parking_boy_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -100,5 +100,4 @@ class ParkingBoyTest {
         // THEN
         assertNull(fetchedCar);
     }
-
 }
