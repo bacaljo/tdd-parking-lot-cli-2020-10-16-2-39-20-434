@@ -1,10 +1,9 @@
 package com.oocl.cultivation;
 
 public class ParkingBoy {
-    private final ParkingLot parkingLot;
-
     private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
     private static final String NULL_TICKET_ERROR_MESSAGE = "Please provide your parking ticket.";
+    private final ParkingLot parkingLot;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
