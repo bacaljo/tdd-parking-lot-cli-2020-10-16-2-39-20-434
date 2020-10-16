@@ -35,17 +35,19 @@ public class ParkingBoy {
             throw new MissingParkingTicketException();
         }
 
-        boolean ticketIsAlreadyUsed = parkingLotList.get(0).getUsedParkingTicketList().contains(parkingTicket);
-        if (ticketIsAlreadyUsed) {
-            throw new UnrecognizedParkingTicketException();
+        for (ParkingLot parkingLot : parkingLotList) {
+            boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
+            if (ticketIsAlreadyUsed) {
+                throw new UnrecognizedParkingTicketException();
+            }
+
+            Car car = parkingLot.fetch(parkingTicket);
+            if (car != null) {
+                return car;
+            }
         }
 
-        Car car = parkingLotList.get(0).fetch(parkingTicket);
-        if (car == null) {
-            throw new UnrecognizedParkingTicketException();
-        }
-
-        return car;
+        throw new UnrecognizedParkingTicketException();
     }
 
     public List<ParkingLot> getParkingLotList() {
