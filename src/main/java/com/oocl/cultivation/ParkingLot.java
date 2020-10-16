@@ -50,4 +50,8 @@ public class ParkingLot {
     public List<ParkingTicket> getUsedParkingTicketList() {
         return usedParkingTicketList;
     }
+
+    public int getNumberOfParkedCars() {
+        return 0;
+    }
 }

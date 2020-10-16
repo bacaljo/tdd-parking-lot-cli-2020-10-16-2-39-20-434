@@ -149,4 +149,19 @@ class ParkingLotTest {
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_ERROR_MESSAGE, exception.getMessage());
     }
+
+    @Test
+    public void should_return_2_when_parking_lot_get_number_of_parked_cars_given_two_parked_cars() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.park(new Car());
+        parkingLot.park(new Car());
+        int expectedParkedCars = 2;
+
+        // WHEN
+        int carsParked = parkingLot.getNumberOfParkedCars();
+
+        // THEN
+        assertEquals(expectedParkedCars, carsParked);
+    }
 }
