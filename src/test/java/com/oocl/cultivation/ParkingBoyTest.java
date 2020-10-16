@@ -18,6 +18,9 @@ class ParkingBoyTest {
     private static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
     private static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
 
+    private static final int FIRST_ELEMENT = 0;
+    private static final int SECOND_ELEMENT = 1;
+
     @Test
     public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
         // GIVEN
@@ -156,15 +159,12 @@ class ParkingBoyTest {
         parkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(0).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
     public void should_park_car_in_second_parking_lot_when_parking_boy_park_given_three_parking_lots_with_the_first_one_being_full() {
         // GIVEN
-        int firstElementIndex = 0;
-        int secondElementIndex = 1;
-
         int parkingLot2ExpectedSize = 1;
         int capacity = 1;
 
@@ -173,8 +173,8 @@ class ParkingBoyTest {
             parkingLots[i] = new ParkingLot(capacity);
         }
 
-        parkingLots[firstElementIndex].park(new Car());
-        parkingLots[secondElementIndex].park(new Car());
+        parkingLots[FIRST_ELEMENT].park(new Car());
+        parkingLots[SECOND_ELEMENT].park(new Car());
 
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
         Car car = new Car();
@@ -183,7 +183,7 @@ class ParkingBoyTest {
         parkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(secondElementIndex).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
