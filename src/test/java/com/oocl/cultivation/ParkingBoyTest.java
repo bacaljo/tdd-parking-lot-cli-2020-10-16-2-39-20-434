@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingBoyTest {
 
-    private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
-    private static final String NULL_TICKET_ERROR_MESSAGE = "Please provide your parking ticket.";
-    private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
+    private static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";
+    private static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
+    private static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
 
     @Test
     public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
@@ -80,7 +80,7 @@ class ParkingBoyTest {
 
         // THEN
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
-        assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
+        assertEquals(UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -99,7 +99,7 @@ class ParkingBoyTest {
 
         // THEN
         Exception exception = assertThrows(MissingParkingTicketException.class, executable);
-        assertEquals(NULL_TICKET_ERROR_MESSAGE, exception.getMessage());
+        assertEquals(MISSING_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -117,7 +117,7 @@ class ParkingBoyTest {
 
         // THEN
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
-        assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
+        assertEquals(UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -135,6 +135,6 @@ class ParkingBoyTest {
 
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_ERROR_MESSAGE, exception.getMessage());
+        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
     }
 }
