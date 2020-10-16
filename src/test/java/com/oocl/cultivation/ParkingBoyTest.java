@@ -1,9 +1,9 @@
 package com.oocl.cultivation;
 
-import org.graalvm.compiler.graph.IterableNodeType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class ParkingBoyTest {
@@ -54,5 +54,20 @@ class ParkingBoyTest {
         assertSame(fetchedCar2, car2);
     }
 
+    @Test
+    public void should_return_null_when_parking_boy_fetch_given_unassociated_ticket() {
+        // GIVEN
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        ParkingTicket fakeParkingTicket = new ParkingTicket();
+
+        // WHEN
+        Car fetchedCar = parkingBoy.fetch(fakeParkingTicket);
+
+        // THEN
+        assertNull(fetchedCar);
+    }
 
 }
