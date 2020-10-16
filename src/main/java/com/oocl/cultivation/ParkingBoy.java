@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
@@ -19,7 +20,14 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        return parkingLotList.get(0).park(car);
+        for (ParkingLot parkingLot : parkingLotList) {
+            boolean isNotYetFull = parkingLot.getCapacity() != parkingLot.getNumberOfParkedCars();
+            if (isNotYetFull) {
+                return parkingLot.park(car);
+            }
+        }
+
+        throw new FullParkingException();
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
