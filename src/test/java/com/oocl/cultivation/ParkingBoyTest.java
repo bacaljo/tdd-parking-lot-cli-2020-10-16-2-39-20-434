@@ -107,9 +107,10 @@ class ParkingBoyTest {
         int capacity = 1;
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(capacity));
         parkingBoy.park(new Car());
+        Car anotherCar = new Car();
 
         // WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        ParkingTicket parkingTicket = parkingBoy.park(anotherCar);
 
         // THEN
         assertNull(parkingTicket);
