@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.ParkingTicketException;
 
 public class ParkingBoy {
@@ -17,7 +18,7 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket parkingTicket) {
         if (parkingTicket == null) {
-            throw new ParkingTicketException(NULL_TICKET_ERROR_MESSAGE);
+            throw new MissingParkingTicketException(NULL_TICKET_ERROR_MESSAGE);
         }
 
         boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
