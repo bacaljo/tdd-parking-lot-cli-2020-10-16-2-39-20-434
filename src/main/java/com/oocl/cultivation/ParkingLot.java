@@ -56,6 +56,6 @@ public class ParkingLot {
     }
 
     public boolean isTicketInUsedTicketList(ParkingTicket parkingTicket) {
-        return false;
+        return usedParkingTicketList.contains(parkingTicket);
     }
 }
