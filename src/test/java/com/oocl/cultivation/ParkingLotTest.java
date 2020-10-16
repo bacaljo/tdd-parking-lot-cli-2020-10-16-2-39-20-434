@@ -17,4 +17,17 @@ class ParkingLotTest {
         // THEN
         assertEquals(defaultCapacity, parkingLot.getCapacity());
     }
+
+    @Test
+    public void should_return_the_correct_capacity_when_parking_lot_is_initialized_given_a_capacity() {
+        // GIVEN
+        ParkingLot parkingLot;
+        int capacity = 2;
+
+        // WHEN
+        parkingLot = new ParkingLot(capacity);
+
+        // THEN
+        assertEquals(2, parkingLot.getCapacity());
+    }
 }

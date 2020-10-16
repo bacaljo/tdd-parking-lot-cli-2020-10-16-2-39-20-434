@@ -14,6 +14,11 @@ public class ParkingLot {
         capacity = DEFAULT_CAPACITY;
     }
 
+    public ParkingLot(int capacity) {
+        this.capacity = 0;
+        parkingTicketCarMap = new HashMap<>();
+    }
+
     public ParkingTicket park(Car car) {
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
