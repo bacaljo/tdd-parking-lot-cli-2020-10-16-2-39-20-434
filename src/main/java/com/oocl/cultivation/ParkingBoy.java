@@ -5,19 +5,21 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
 
-public class ParkingBoy {
-    private final ParkingLot parkingLot;
+import static java.util.Arrays.asList;
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+public class ParkingBoy {
+    private final List<ParkingLot> parkingLotList;
+
+    public ParkingBoy(ParkingLot... parkingLot) {
+        this(asList(parkingLot));
     }
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
-        parkingLot = new ParkingLot();
+        this.parkingLotList = parkingLotList;
     }
 
     public ParkingTicket park(Car car) {
-        return parkingLot.park(car);
+        return parkingLotList.get(0).park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
@@ -25,12 +27,12 @@ public class ParkingBoy {
             throw new MissingParkingTicketException();
         }
 
-        boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
+        boolean ticketIsAlreadyUsed = parkingLotList.get(0).getUsedParkingTicketList().contains(parkingTicket);
         if (ticketIsAlreadyUsed) {
             throw new UnrecognizedParkingTicketException();
         }
 
-        Car car = parkingLot.fetch(parkingTicket);
+        Car car = parkingLotList.get(0).fetch(parkingTicket);
         if (car == null) {
             throw new UnrecognizedParkingTicketException();
         }
@@ -39,6 +41,6 @@ public class ParkingBoy {
     }
 
     public List<ParkingLot> getParkingLotList() {
-        return null;
+        return parkingLotList;
     }
 }
