@@ -6,9 +6,11 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import static com.oocl.cultivation.TestConstants.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -135,5 +137,35 @@ class SuperSuperSmartParkingBoyTest {
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_larger_available_position_rate() {
+        // GIVEN
+        int parkingLot1ExpectedSize = 4;
+        int capacity1 = 15;
+        int capacity2 = 20;
+
+        ParkingLot parkingLot1 = new ParkingLot(capacity1);
+        ParkingLot parkingLot2 = new ParkingLot(capacity2);
+
+        parkingLot1.park(new Car());
+        parkingLot1.park(new Car());
+        parkingLot1.park(new Car());
+
+        parkingLot2.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot2.park(new Car());
+
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
+        Car car = new Car();
+
+        // WHEN
+        superSmartParkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
     }
 }
