@@ -3,11 +3,17 @@ package com.oocl.cultivation;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
+import java.util.List;
+
 public class ParkingBoy {
     private final ParkingLot parkingLot;
 
     public ParkingBoy(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
+    }
+
+    public ParkingBoy(List<ParkingLot> parkingLotList) {
+        parkingLot = new ParkingLot();
     }
 
     public ParkingTicket park(Car car) {
@@ -30,5 +36,9 @@ public class ParkingBoy {
         }
 
         return car;
+    }
+
+    public List<ParkingLot> getParkingLotList() {
+        return null;
     }
 }
