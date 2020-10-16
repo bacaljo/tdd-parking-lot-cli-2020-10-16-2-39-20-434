@@ -13,7 +13,7 @@ public class ParkingBoy {
 
     public Car fetch(ParkingTicket parkingTicket) {
         if (parkingTicket == null) {
-            return null;
+            throw new ParkingTicketException("Please provide your parking ticket.");
         }
 
         boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
