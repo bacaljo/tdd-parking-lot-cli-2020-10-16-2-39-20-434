@@ -20,6 +20,10 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
+        if (parkingTicketCarMap.size() == capacity) {
+            return null;
+        }
+
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
 
