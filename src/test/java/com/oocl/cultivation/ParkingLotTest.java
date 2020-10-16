@@ -1,13 +1,17 @@
 package com.oocl.cultivation;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
+    private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
+
     @Test
     public void should_have_a_default_capacity_of_10_when_parking_lot_is_initialized_given_no_capacity() {
         // GIVEN
@@ -128,16 +132,20 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_null_when_parking_lot_park_given_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_parking_lot_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
         ParkingLot parkingLot = new ParkingLot(capacity);
         parkingLot.park(new Car());
+        Car anotherCar = new Car();
 
         // WHEN
-        ParkingTicket parkingTicket = parkingLot.park(new Car());
+        Executable executable = () -> {
+            parkingLot.park(anotherCar);
+        };
 
         // THEN
-        assertNull(parkingTicket);
+        Exception exception = assertThrows(FullParkingException.class, executable);
+        assertEquals(FULL_PARKING_ERROR_MESSAGE, exception.getMessage());
     }
 }

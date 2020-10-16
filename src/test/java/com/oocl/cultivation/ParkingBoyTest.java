@@ -5,7 +5,6 @@ import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -13,6 +12,7 @@ class ParkingBoyTest {
 
     private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
     private static final String NULL_TICKET_ERROR_MESSAGE = "Please provide your parking ticket.";
+    private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
 
     @Test
     public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
@@ -118,7 +118,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_parking_boy_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_parking_boy_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(capacity));
@@ -126,9 +126,12 @@ class ParkingBoyTest {
         Car anotherCar = new Car();
 
         // WHEN
-        ParkingTicket parkingTicket = parkingBoy.park(anotherCar);
+        Executable executable = () -> {
+            parkingBoy.park(anotherCar);
+        };
 
         // THEN
-        assertNull(parkingTicket);
+        Exception exception = assertThrows(FullParkingException.class, executable);
+        assertEquals(FULL_PARKING_ERROR_MESSAGE, exception.getMessage());
     }
 }
