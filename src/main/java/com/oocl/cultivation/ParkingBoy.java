@@ -9,7 +9,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class ParkingBoy {
-    private final List<ParkingLot> parkingLotList;
+    protected final List<ParkingLot> parkingLotList;
 
     public ParkingBoy(ParkingLot... parkingLot) {
         this(asList(parkingLot));
