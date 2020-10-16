@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class ParkingLot {
     private static final int DEFAULT_CAPACITY = 10;
-    private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
 
     private final Map<ParkingTicket, Car> parkingTicketCarMap;
     private final List<ParkingTicket> usedParkingTicketList;
@@ -27,7 +26,7 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         if (parkingTicketCarMap.size() == capacity) {
-            throw new FullParkingException(FULL_PARKING_ERROR_MESSAGE);
+            throw new FullParkingException();
         }
 
         ParkingTicket parkingTicket = new ParkingTicket();
