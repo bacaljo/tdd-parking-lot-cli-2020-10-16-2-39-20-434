@@ -54,4 +54,8 @@ public class ParkingLot {
     public int getNumberOfParkedCars() {
         return parkingTicketCarMap.size();
     }
+
+    public boolean isTicketInUsedTicketList(ParkingTicket parkingTicket) {
+        return false;
+    }
 }

@@ -164,4 +164,19 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedParkedCars, carsParked);
     }
+
+    @Test
+    public void should_return_true_when_parking_lot_is_ticket_in_used_ticket_list_given_used_ticket() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket parkingTicket = parkingLot.park(new Car());
+        parkingLot.fetch(parkingTicket);
+        boolean expectedResult = true;
+
+        // WHEN
+        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(parkingTicket);
+
+        // THEN
+        assertEquals(expectedResult, isTicketInUsedTicketList);
+    }
 }
