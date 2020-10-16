@@ -10,8 +10,7 @@ public class ParkingLot {
     private final int capacity;
 
     public ParkingLot() {
-        parkingTicketCarMap = new HashMap<>();
-        capacity = DEFAULT_CAPACITY;
+        this(DEFAULT_CAPACITY);
     }
 
     public ParkingLot(int capacity) {
