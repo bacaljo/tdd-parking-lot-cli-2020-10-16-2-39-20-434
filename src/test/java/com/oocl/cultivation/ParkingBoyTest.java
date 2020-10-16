@@ -2,7 +2,7 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
-import com.oocl.cultivation.exception.ParkingTicketException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -65,7 +65,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_ticket_exception_with_message_when_parking_boy_fetch_given_unassociated_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_unassociated_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -79,7 +79,7 @@ class ParkingBoyTest {
         };
 
         // THEN
-        Exception exception = assertThrows(ParkingTicketException.class, executable);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
         assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
     }
 
@@ -103,7 +103,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_parking_ticket_exception_with_message_when_parking_boy_fetch_given_an_already_used_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -116,7 +116,7 @@ class ParkingBoyTest {
         };
 
         // THEN
-        Exception exception = assertThrows(ParkingTicketException.class, executable);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
         assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
     }
 

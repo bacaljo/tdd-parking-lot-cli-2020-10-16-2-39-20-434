@@ -1,7 +1,7 @@
 package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.MissingParkingTicketException;
-import com.oocl.cultivation.exception.ParkingTicketException;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 public class ParkingBoy {
     private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
@@ -23,12 +23,12 @@ public class ParkingBoy {
 
         boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
         if (ticketIsAlreadyUsed) {
-            throw new ParkingTicketException(UNRECOGNIZED_TICKET_ERROR_MESSAGE);
+            throw new UnrecognizedParkingTicketException(UNRECOGNIZED_TICKET_ERROR_MESSAGE);
         }
 
         Car car = parkingLot.fetch(parkingTicket);
         if (car == null) {
-            throw new ParkingTicketException(UNRECOGNIZED_TICKET_ERROR_MESSAGE);
+            throw new UnrecognizedParkingTicketException(UNRECOGNIZED_TICKET_ERROR_MESSAGE);
         }
 
         return car;
