@@ -23,4 +23,8 @@ public class ParkingLot {
 
         return car;
     }
+
+    public int getCapacity() {
+        return 0;
+    }
 }
