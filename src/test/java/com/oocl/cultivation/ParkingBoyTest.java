@@ -59,7 +59,7 @@ class ParkingBoyTest {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.park(car);
 
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
@@ -75,7 +75,7 @@ class ParkingBoyTest {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.park(car);
 
         ParkingTicket nullParkingTicket = null;
 
