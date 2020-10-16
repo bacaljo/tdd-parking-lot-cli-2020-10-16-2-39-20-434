@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

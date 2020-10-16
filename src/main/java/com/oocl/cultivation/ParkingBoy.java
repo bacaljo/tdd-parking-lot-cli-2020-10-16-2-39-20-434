@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.ParkingTicketException;
+
 public class ParkingBoy {
     private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
     private static final String NULL_TICKET_ERROR_MESSAGE = "Please provide your parking ticket.";

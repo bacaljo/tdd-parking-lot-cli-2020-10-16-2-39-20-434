@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.ParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
