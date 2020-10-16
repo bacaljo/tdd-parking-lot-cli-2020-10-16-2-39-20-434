@@ -56,6 +56,6 @@ public class ParkingLot {
     }
 
     public int countEmptyPositions() {
-        return 0;
+        return capacity - getNumberOfParkedCars();
     }
 }
