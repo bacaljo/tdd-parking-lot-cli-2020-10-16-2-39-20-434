@@ -31,7 +31,7 @@ class ParkingLotTest {
         parkingLot = new ParkingLot(capacity);
 
         // THEN
-        assertEquals(2, parkingLot.getCapacity());
+        assertEquals(capacity, parkingLot.getCapacity());
     }
 
     @Test
@@ -118,9 +118,9 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
+        parkingLot.fetch(parkingTicket);
 
         // WHEN
-        parkingLot.fetch(parkingTicket);
         Car fetchedCar = parkingLot.fetch(parkingTicket);
 
         // THEN

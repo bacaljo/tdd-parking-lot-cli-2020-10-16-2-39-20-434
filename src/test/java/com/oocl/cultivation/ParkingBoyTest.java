@@ -92,9 +92,9 @@ class ParkingBoyTest {
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.fetch(parkingTicket);
 
         // WHEN
-        parkingBoy.fetch(parkingTicket);
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
 
         // THEN
