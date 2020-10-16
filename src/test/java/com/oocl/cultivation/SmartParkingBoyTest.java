@@ -7,6 +7,7 @@ import com.oocl.cultivation.parkingboy.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -17,6 +18,8 @@ class SmartParkingBoyTest {
     private static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";
     private static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
     private static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
+
+    private static final int FIRST_ELEMENT = 0;
 
     @Test
     public void should_return_a_parking_ticket_when_park_given_a_car() {
@@ -137,5 +140,26 @@ class SmartParkingBoyTest {
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_empty_positions() {
+        // GIVEN
+        int parkingLot1ExpectedSize = 2;
+        int capacity = 3;
+
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot2.park(new Car());
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
+        Car car = new Car();
+
+        // WHEN
+        smartParkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
     }
 }
