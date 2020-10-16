@@ -1,12 +1,18 @@
 package com.oocl.cultivation;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingBoyTest {
+
+    private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
+
     @Test
     public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
         // GIVEN
@@ -55,7 +61,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_parking_boy_fetch_given_unassociated_ticket() {
+    public void should_throw_unrecognized_ticket_exception_with_message_when_parking_boy_fetch_given_unassociated_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -64,10 +70,13 @@ class ParkingBoyTest {
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
         // WHEN
-        Car fetchedCar = parkingBoy.fetch(fakeParkingTicket);
+        Executable executable = () -> {
+            parkingBoy.fetch(fakeParkingTicket);
+        };
 
         // THEN
-        assertNull(fetchedCar);
+        Exception exception = assertThrows(ParkingTicketException.class, executable);
+        assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -87,7 +96,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_parking_boy_fetch_given_an_already_used_ticket() {
+    public void should_throw_parking_ticket_exception_with_message_when_parking_boy_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -95,10 +104,13 @@ class ParkingBoyTest {
         parkingBoy.fetch(parkingTicket);
 
         // WHEN
-        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+        Executable executable = () -> {
+            parkingBoy.fetch(parkingTicket);
+        };
 
         // THEN
-        assertNull(fetchedCar);
+        Exception exception = assertThrows(ParkingTicketException.class, executable);
+        assertEquals(UNRECOGNIZED_TICKET_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
@@ -115,5 +127,4 @@ class ParkingBoyTest {
         // THEN
         assertNull(parkingTicket);
     }
-
 }
