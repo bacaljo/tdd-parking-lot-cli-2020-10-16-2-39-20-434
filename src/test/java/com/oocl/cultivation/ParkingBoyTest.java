@@ -167,16 +167,14 @@ class ParkingBoyTest {
         // GIVEN
         int parkingLot2ExpectedSize = 1;
         int capacity = 1;
+        ParkingLot parkingLots1 = new ParkingLot(capacity);
+        ParkingLot parkingLots2 = new ParkingLot(capacity);
+        ParkingLot parkingLots3 = new ParkingLot(capacity);
 
-        ParkingLot[] parkingLots = new ParkingLot[3];
-        for (int i = 0; i < parkingLots.length; i++) {
-            parkingLots[i] = new ParkingLot(capacity);
-        }
+        parkingLots1.park(new Car());
+        parkingLots2.park(new Car());
 
-        parkingLots[FIRST_ELEMENT].park(new Car());
-        parkingLots[SECOND_ELEMENT].park(new Car());
-
-        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots1, parkingLots2, parkingLots3);
         Car car = new Car();
 
         // WHEN
