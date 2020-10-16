@@ -158,4 +158,31 @@ class ParkingBoyTest {
         // THEN
         assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(0).getNumberOfParkedCars());
     }
+
+    @Test
+    public void should_park_car_in_second_parking_lot_when_parking_boy_park_given_three_parking_lots_with_the_first_one_being_full() {
+        // GIVEN
+        int firstElementIndex = 0;
+        int secondElementIndex = 1;
+
+        int parkingLot2ExpectedSize = 1;
+        int capacity = 1;
+
+        ParkingLot[] parkingLots = new ParkingLot[3];
+        for (int i = 0; i < parkingLots.length; i++) {
+            parkingLots[i] = new ParkingLot(capacity);
+        }
+
+        parkingLots[firstElementIndex].park(new Car());
+        parkingLots[secondElementIndex].park(new Car());
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car();
+
+        // WHEN
+        parkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(secondElementIndex).getNumberOfParkedCars());
+    }
 }
