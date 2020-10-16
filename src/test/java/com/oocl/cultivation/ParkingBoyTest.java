@@ -22,7 +22,7 @@ class ParkingBoyTest {
     private static final int SECOND_ELEMENT = 1;
 
     @Test
-    public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
+    public void should_return_a_parking_ticket_when_park_given_a_car() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -35,7 +35,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_the_correct_car_when_parking_boy_fetch_given_the_correct_ticket() {
+    public void should_return_the_correct_car_when_fetch_given_the_correct_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -49,7 +49,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_the_correct_cars_when_parking_boy_fetch_given_two_tickets() {
+    public void should_return_the_correct_cars_when_fetch_given_two_tickets() {
         // GIVEN
         Car car1 = new Car();
         Car car2 = new Car();
@@ -69,7 +69,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_unassociated_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_unassociated_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -88,7 +88,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_missing_parking_ticket_exception_when_parking_boy_fetch_given_null_ticket() {
+    public void should_throw_missing_parking_ticket_exception_when_fetch_given_null_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -107,7 +107,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_an_already_used_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -125,7 +125,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_parking_boy_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(capacity));
@@ -143,7 +143,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_first_parking_lot_when_parking_boy_park_given_two_parking_lots_that_are_still_not_full() {
+    public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_that_are_still_not_full() {
         // GIVEN
         int parkingLot1ExpectedSize = 2;
         int capacity = 3;
@@ -163,7 +163,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_parking_boy_park_given_three_parking_lots_with_the_first_one_being_full() {
+    public void should_park_car_in_second_parking_lot_when_park_given_three_parking_lots_with_the_first_one_being_full() {
         // GIVEN
         int parkingLot2ExpectedSize = 1;
         int capacity = 1;
@@ -185,7 +185,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_car_when_parking_boy_fetch_given_car_is_parked_in_the_third_parking_lot() {
+    public void should_return_car_when_fetch_given_car_is_parked_in_the_third_parking_lot() {
         // GIVEN
         int capacity = 2;
         ParkingLot parkingLot1 = new ParkingLot(capacity);
@@ -208,7 +208,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_missing_parking_ticket_exception_when_parking_boy_fetch_given_two_parking_lots_and_a_null_ticket() {
+    public void should_throw_missing_parking_ticket_exception_when_fetch_given_two_parking_lots_and_a_null_ticket() {
         // GIVEN
         int capacity = 2;
         ParkingLot parkingLot1 = new ParkingLot(capacity);
@@ -228,7 +228,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_three_parking_lots_with_cars_and_an_unassociated_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_three_parking_lots_with_cars_and_an_unassociated_ticket() {
         // GIVEN
         int capacity = 2;
         ParkingLot parkingLot1 = new ParkingLot(capacity);
@@ -250,7 +250,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_parking_boy_fetch_given_two_parking_lots_and_an_already_used_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_two_parking_lots_and_an_already_used_ticket() {
         // GIVEN
         int capacity = 2;
         ParkingLot parkingLot1 = new ParkingLot(capacity);
@@ -274,7 +274,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_parking_boy_park_given_three_full_parking_lots() {
+    public void should_throw_a_full_parking_exception_when_park_given_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
         ParkingLot parkingLot1 = new ParkingLot(capacity);

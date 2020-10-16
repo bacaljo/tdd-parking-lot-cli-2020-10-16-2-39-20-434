@@ -14,7 +14,7 @@ class ParkingLotTest {
     private static final String FULL_PARKING_ERROR_MESSAGE = "Not enough position.";
 
     @Test
-    public void should_have_a_default_capacity_of_10_when_parking_lot_is_initialized_given_no_capacity() {
+    public void should_have_a_default_capacity_of_10_when_is_initialized_given_no_capacity() {
         // GIVEN
         ParkingLot parkingLot;
         int defaultCapacity = 10;
@@ -27,7 +27,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_the_correct_capacity_when_parking_lot_is_initialized_given_a_capacity() {
+    public void should_return_the_correct_capacity_when_is_initialized_given_a_capacity() {
         // GIVEN
         ParkingLot parkingLot;
         int capacity = 2;
@@ -40,7 +40,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_a_parking_ticket_when_parking_lot_park_given_a_car() {
+    public void should_return_a_parking_ticket_when_park_given_a_car() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -53,7 +53,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_the_correct_car_when_parking_lot_fetch_given_the_correct_ticket() {
+    public void should_return_the_correct_car_when_fetch_given_the_correct_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -67,7 +67,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_the_correct_cars_when_parking_lot_fetch_given_two_tickets() {
+    public void should_return_the_correct_cars_when_fetch_given_two_tickets() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car1 = new Car();
@@ -86,7 +86,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_null_when_parking_lot_fetch_given_unassociated_ticket() {
+    public void should_return_null_when_fetch_given_unassociated_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -102,7 +102,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_null_when_parking_lot_fetch_given_null_ticket() {
+    public void should_return_null_when_fetch_given_null_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -118,7 +118,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_null_when_parking_lot_fetch_given_an_already_used_ticket() {
+    public void should_return_null_when_fetch_given_an_already_used_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -133,7 +133,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_parking_lot_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
         ParkingLot parkingLot = new ParkingLot(capacity);
@@ -151,7 +151,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_2_when_parking_lot_get_number_of_parked_cars_given_two_parked_cars() {
+    public void should_return_2_when_get_number_of_parked_cars_given_two_parked_cars() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         parkingLot.park(new Car());
@@ -166,7 +166,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_true_when_parking_lot_is_ticket_in_used_ticket_list_given_used_ticket() {
+    public void should_return_true_when_is_ticket_in_used_ticket_list_given_used_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car());
@@ -181,7 +181,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_false_when_parking_lot_is_ticket_in_used_ticket_list_given_unassociated_ticket() {
+    public void should_return_false_when_is_ticket_in_used_ticket_list_given_unassociated_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket unassociatedTicket = new ParkingTicket();
@@ -195,7 +195,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_false_when_parking_lot_is_ticket_in_used_ticket_list_given_null_ticket() {
+    public void should_return_false_when_is_ticket_in_used_ticket_list_given_null_ticket() {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket nullTicket = null;
