@@ -185,4 +185,27 @@ class ParkingBoyTest {
         // THEN
         assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(secondElementIndex).getNumberOfParkedCars());
     }
+
+    @Test
+    public void should_return_car_when_parking_boy_fetch_given_car_is_parked_in_the_third_parking_lot() {
+        // GIVEN
+        int capacity = 2;
+        ParkingLot parkingLots1 = new ParkingLot(capacity);
+        ParkingLot parkingLots2 = new ParkingLot(capacity);
+        ParkingLot parkingLots3 = new ParkingLot(capacity);
+
+        parkingLots1.park(new Car());
+        parkingLots2.park(new Car());
+
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingLots3.park(car);
+
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots1, parkingLots2, parkingLots3);
+
+        // WHEN
+        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+
+        // THEN
+        assertSame(car, fetchedCar);
+    }
 }
