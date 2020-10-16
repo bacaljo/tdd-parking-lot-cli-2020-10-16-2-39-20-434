@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ParkingBoyTest {
 
     private static final String UNRECOGNIZED_TICKET_ERROR_MESSAGE = "Unrecognized parking ticket.";
+    private static final String NULL_TICKET_ERROR_MESSAGE = "Please provide your parking ticket.";
 
     @Test
     public void should_return_a_parking_ticket_when_parking_boy_park_given_a_car() {
@@ -80,7 +81,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_parking_boy_fetch_given_null_ticket() {
+    public void should_throw_parking_ticket_exception_when_parking_boy_fetch_given_null_ticket() {
         // GIVEN
         Car car = new Car();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
@@ -89,10 +90,13 @@ class ParkingBoyTest {
         ParkingTicket nullParkingTicket = null;
 
         // WHEN
-        Car fetchedCar = parkingBoy.fetch(nullParkingTicket);
+        Executable executable = () -> {
+            parkingBoy.fetch(nullParkingTicket);
+        };
 
         // THEN
-        assertNull(fetchedCar);
+        Exception exception = assertThrows(ParkingTicketException.class, executable);
+        assertEquals(NULL_TICKET_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
