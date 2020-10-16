@@ -20,6 +20,7 @@ class SmartParkingBoyTest {
     private static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
 
     private static final int FIRST_ELEMENT = 0;
+    private static final int SECOND_ELEMENT = 1;
 
     @Test
     public void should_return_a_parking_ticket_when_park_given_a_car() {
@@ -161,5 +162,26 @@ class SmartParkingBoyTest {
 
         // THEN
         assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_park_car_in_second_parking_lot_when_park_given_two_parking_lots_where_second_has_more_empty_positions() {
+        // GIVEN
+        int parkingLot2ExpectedSize = 2;
+        int capacity = 3;
+
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        parkingLot1.park(new Car());
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
+        Car car = new Car();
+
+        // WHEN
+        smartParkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 }
