@@ -179,4 +179,32 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedResult, isTicketInUsedTicketList);
     }
+
+    @Test
+    public void should_return_false_when_parking_lot_is_ticket_in_used_ticket_list_given_unassociated_ticket() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket unassociatedTicket = new ParkingTicket();
+        boolean expectedResult = false;
+
+        // WHEN
+        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(unassociatedTicket);
+
+        // THEN
+        assertEquals(expectedResult, isTicketInUsedTicketList);
+    }
+
+    @Test
+    public void should_return_false_when_parking_lot_is_ticket_in_used_ticket_list_given_null_ticket() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket nullTicket = null;
+        boolean expectedResult = false;
+
+        // WHEN
+        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(nullTicket);
+
+        // THEN
+        assertEquals(expectedResult, isTicketInUsedTicketList);
+    }
 }
