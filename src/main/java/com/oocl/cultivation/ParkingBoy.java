@@ -36,8 +36,7 @@ public class ParkingBoy {
         }
 
         for (ParkingLot parkingLot : parkingLotList) {
-            boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
-            if (ticketIsAlreadyUsed) {
+            if (parkingLot.isTicketInUsedTicketList(parkingTicket)) {
                 throw new UnrecognizedParkingTicketException();
             }
 

@@ -47,10 +47,6 @@ public class ParkingLot {
         return capacity;
     }
 
-    public List<ParkingTicket> getUsedParkingTicketList() {
-        return usedParkingTicketList;
-    }
-
     public int getNumberOfParkedCars() {
         return parkingTicketCarMap.size();
     }
