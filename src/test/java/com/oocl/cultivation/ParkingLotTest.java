@@ -207,4 +207,20 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedResult, isTicketInUsedTicketList);
     }
+
+    @Test
+    public void should_return_one_when_count_empty_positions_given_a_parking_lot_with_the_capacity_of_three_have_two_parked_cars() {
+        // GIVEN
+        int capacity = 3;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        parkingLot.park(new Car());
+        parkingLot.park(new Car());
+        int expectedEmptyPositions = 1;
+
+        // WHEN
+        int emptyPositions = parkingLot.countEmptyPositions();
+
+        // THEN
+        assertEquals(expectedEmptyPositions, emptyPositions);
+    }
 }

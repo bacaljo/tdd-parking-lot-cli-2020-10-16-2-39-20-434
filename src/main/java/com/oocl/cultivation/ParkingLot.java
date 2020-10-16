@@ -54,4 +54,8 @@ public class ParkingLot {
     public boolean isTicketInUsedTicketList(ParkingTicket parkingTicket) {
         return usedParkingTicketList.contains(parkingTicket);
     }
+
+    public int countEmptyPositions() {
+        return 0;
+    }
 }
