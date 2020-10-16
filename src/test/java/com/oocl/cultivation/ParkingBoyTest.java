@@ -100,4 +100,18 @@ class ParkingBoyTest {
         // THEN
         assertNull(fetchedCar);
     }
+
+    @Test
+    public void should_return_null_when_parking_boy_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
+        // GIVEN
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot(1));
+        parkingBoy.park(new Car());
+
+        // WHEN
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+
+        // THEN
+        assertNull(parkingTicket);
+    }
+
 }
