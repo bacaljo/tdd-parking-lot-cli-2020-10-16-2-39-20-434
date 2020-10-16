@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import org.graalvm.compiler.graph.IterableNodeType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,5 +33,26 @@ class ParkingBoyTest {
         // THEN
         assertSame(fetchedCar, car);
     }
+
+    @Test
+    public void should_return_the_correct_cars_when_parking_boy_fetch_given_two_tickets() {
+        // GIVEN
+        Car car1 = new Car();
+        Car car2 = new Car();
+
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+
+        ParkingTicket parkingTicket1 = parkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
+
+        // WHEN
+        Car fetchedCar1 = parkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
+
+        // THEN
+        assertSame(fetchedCar1, car1);
+        assertSame(fetchedCar2, car2);
+    }
+
 
 }
