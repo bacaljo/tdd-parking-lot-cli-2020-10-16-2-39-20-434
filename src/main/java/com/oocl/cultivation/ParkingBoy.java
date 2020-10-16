@@ -12,6 +12,20 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingLot.fetch(parkingTicket);
+        if (parkingTicket == null) {
+            return null;
+        }
+
+        boolean ticketIsAlreadyUsed = parkingLot.getUsedParkingTicketList().contains(parkingTicket);
+        if (ticketIsAlreadyUsed) {
+            throw new ParkingTicketException("Unrecognized parking ticket.");
+        }
+
+        Car car = parkingLot.fetch(parkingTicket);
+        if (car == null) {
+            throw new ParkingTicketException("Unrecognized parking ticket.");
+        }
+
+        return car;
     }
 }
