@@ -23,10 +23,10 @@ class SuperSuperSmartParkingBoyTest {
     public void should_return_a_parking_ticket_when_park_given_a_car() {
         // GIVEN
         Car car = new Car();
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
 
         // WHEN
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         // THEN
         assertNotNull(parkingTicket);
@@ -36,11 +36,11 @@ class SuperSuperSmartParkingBoyTest {
     public void should_return_the_correct_car_when_fetch_given_the_correct_ticket() {
         // GIVEN
         Car car = new Car();
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         // WHEN
-        Car fetchedCar = superSmartParkingBoy.fetch(parkingTicket);
+        Car fetchedCar = parkingBoy.fetch(parkingTicket);
 
         // THEN
         assertSame(fetchedCar, car);
@@ -52,14 +52,14 @@ class SuperSuperSmartParkingBoyTest {
         Car car1 = new Car();
         Car car2 = new Car();
 
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
 
-        ParkingTicket parkingTicket1 = superSmartParkingBoy.park(car1);
-        ParkingTicket parkingTicket2 = superSmartParkingBoy.park(car2);
+        ParkingTicket parkingTicket1 = parkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = parkingBoy.park(car2);
 
         // WHEN
-        Car fetchedCar1 = superSmartParkingBoy.fetch(parkingTicket1);
-        Car fetchedCar2 = superSmartParkingBoy.fetch(parkingTicket2);
+        Car fetchedCar1 = parkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
 
         // THEN
         assertSame(fetchedCar1, car1);
@@ -70,14 +70,14 @@ class SuperSuperSmartParkingBoyTest {
     public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_unassociated_ticket() {
         // GIVEN
         Car car = new Car();
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
-        superSmartParkingBoy.park(car);
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        parkingBoy.park(car);
 
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
         // WHEN
         Executable executable = () -> {
-            superSmartParkingBoy.fetch(fakeParkingTicket);
+            parkingBoy.fetch(fakeParkingTicket);
         };
 
         // THEN
@@ -89,14 +89,14 @@ class SuperSuperSmartParkingBoyTest {
     public void should_throw_missing_parking_ticket_exception_when_fetch_given_null_ticket() {
         // GIVEN
         Car car = new Car();
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
-        superSmartParkingBoy.park(car);
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        parkingBoy.park(car);
 
         ParkingTicket nullParkingTicket = null;
 
         // WHEN
         Executable executable = () -> {
-            superSmartParkingBoy.fetch(nullParkingTicket);
+            parkingBoy.fetch(nullParkingTicket);
         };
 
         // THEN
@@ -108,13 +108,13 @@ class SuperSuperSmartParkingBoyTest {
     public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
-        superSmartParkingBoy.fetch(parkingTicket);
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot());
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.fetch(parkingTicket);
 
         // WHEN
         Executable executable = () -> {
-            superSmartParkingBoy.fetch(parkingTicket);
+            parkingBoy.fetch(parkingTicket);
         };
 
         // THEN
@@ -126,13 +126,13 @@ class SuperSuperSmartParkingBoyTest {
     public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(new ParkingLot(capacity));
-        superSmartParkingBoy.park(new Car());
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(new ParkingLot(capacity));
+        parkingBoy.park(new Car());
         Car anotherCar = new Car();
 
         // WHEN
         Executable executable = () -> {
-            superSmartParkingBoy.park(anotherCar);
+            parkingBoy.park(anotherCar);
         };
 
         // THEN
@@ -160,14 +160,14 @@ class SuperSuperSmartParkingBoyTest {
         parkingLot2.park(new Car());
         parkingLot2.park(new Car());
 
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         // WHEN
-        superSmartParkingBoy.park(car);
+        parkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
@@ -190,13 +190,13 @@ class SuperSuperSmartParkingBoyTest {
         parkingLot2.park(new Car());
         parkingLot2.park(new Car());
 
-        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         // WHEN
-        superSmartParkingBoy.park(car);
+        parkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot2ExpectedSize, superSmartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 }
