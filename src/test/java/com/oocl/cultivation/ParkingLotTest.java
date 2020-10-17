@@ -4,7 +4,7 @@ import com.oocl.cultivation.exception.FullParkingException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;

@@ -6,11 +6,11 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static com.oocl.cultivation.TestConstants.FIRST_ELEMENT;
-import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
-import static com.oocl.cultivation.TestConstants.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
-import static com.oocl.cultivation.TestConstants.SECOND_ELEMENT;
-import static com.oocl.cultivation.TestConstants.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.FIRST_ELEMENT;
+import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
