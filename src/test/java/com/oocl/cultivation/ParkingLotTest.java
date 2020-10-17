@@ -225,7 +225,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_eight_over_ten_when_get_available_position_rate_given_a_parking_lot_with_5_capacity_and_4_parked_cars() {
+    public void should_return_two_over_ten_when_get_available_position_rate_given_a_parking_lot_with_5_capacity_and_4_parked_cars() {
         // GIVEN
         int capacity = 5;
         ParkingLot parkingLot = new ParkingLot(capacity);
@@ -233,7 +233,7 @@ class ParkingLotTest {
         parkingLot.park(new Car());
         parkingLot.park(new Car());
         parkingLot.park(new Car());
-        double expectedAvailablePositionRate = .8;
+        double expectedAvailablePositionRate = .2;
 
         // WHEN
         double availablePositionRate = parkingLot.getAvailablePositionRate();
