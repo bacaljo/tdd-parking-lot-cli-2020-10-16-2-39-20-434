@@ -7,7 +7,6 @@ import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
-import com.oocl.cultivation.parkingboy.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -18,6 +17,7 @@ import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
 import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -153,7 +153,7 @@ class SmartParkingBoyTest {
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
