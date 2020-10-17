@@ -13,6 +13,7 @@ public class SuperSmartParkingBoy extends ParkingBoy {
         super(parkingLotList);
     }
 
+    @Override
     public ParkingTicket park(Car car) {
         ParkingLot parkingLot = parkingLotList.stream()
                 .reduce((largestAvailablePositionRateParkingLot, p) ->
