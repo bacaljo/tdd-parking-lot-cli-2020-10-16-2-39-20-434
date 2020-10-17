@@ -23,6 +23,6 @@ public class ParkingLotServiceManager {
     }
 
     public ParkingTicket orderParkingBoyToPark(ParkingBoy parkingBoy, Car car) {
-        return null;
+        return parkingBoy.park(car);
     }
 }
