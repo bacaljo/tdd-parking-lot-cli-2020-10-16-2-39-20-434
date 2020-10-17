@@ -10,6 +10,7 @@ import static com.oocl.cultivation.TestConstants.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestConstants.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestConstants.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -152,7 +153,6 @@ class ParkingBoyTest {
     @Test
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_that_are_still_not_full() {
         // GIVEN
-        int parkingLot1ExpectedSize = 2;
         int capacity = 3;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
@@ -161,31 +161,40 @@ class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 2;
+        int parkingLot2ExpectedSize = 1;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
         assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
     public void should_park_car_in_second_parking_lot_when_park_given_three_parking_lots_with_the_first_one_being_full() {
         // GIVEN
-        int parkingLot2ExpectedSize = 1;
         int capacity = 1;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
         ParkingLot parkingLot3 = new ParkingLot(capacity);
 
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot1, parkingLot2, parkingLot3);
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 1;
+        int parkingLot2ExpectedSize = 1;
+        int parkingLot3ExpectedSize = 0;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot3ExpectedSize, parkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
