@@ -4,11 +4,16 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.ParkingBoyManagementException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
+import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotServiceManagerTest {
     @Test
@@ -40,5 +45,22 @@ class ParkingLotServiceManagerTest {
 
         // then
         assertNotNull(parkingTicket);
+    }
+
+    @Test
+    public void should_throw_an_error_when_order_parking_boy_to_park_given_an_unmanaged_parking_boy() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        Car car = new Car();
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.orderParkingBoyToPark(parkingBoy, car);
+        };
+
+        // then
+        Exception exception = assertThrows(ParkingBoyManagementException.class, executable);
+        assertEquals(PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE, exception.getMessage());
     }
 }
