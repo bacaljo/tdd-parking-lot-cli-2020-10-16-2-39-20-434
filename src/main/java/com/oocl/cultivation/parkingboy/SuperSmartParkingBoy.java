@@ -1,5 +1,9 @@
-package com.oocl.cultivation;
+package com.oocl.cultivation.parkingboy;
 
+import com.oocl.cultivation.Car;
+import com.oocl.cultivation.ParkingBoy;
+import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.FullParkingException;
 
 import java.util.List;
