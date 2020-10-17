@@ -241,4 +241,19 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedAvailablePositionRate, availablePositionRate);
     }
+
+    @Test
+    public void should_return_true_when_get_is_full_given_a_full_parking_lot() {
+        // GIVEN
+        int capacity = 1;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        parkingLot.park(new Car());
+        boolean expectedResult = true;
+
+        // WHEN
+        boolean isFull = parkingLot.isFull();
+
+        // THEN
+        assertEquals(expectedResult, isFull);
+    }
 }
