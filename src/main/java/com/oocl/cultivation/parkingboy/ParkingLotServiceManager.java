@@ -33,6 +33,10 @@ public class ParkingLotServiceManager {
     }
 
     public Car orderParkingBoyToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        if (managementList.contains(parkingBoy)) {
+            return parkingBoy.fetch(parkingTicket);
+        }
+
         return null;
     }
 }
