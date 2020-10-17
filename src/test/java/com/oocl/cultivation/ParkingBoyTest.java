@@ -13,7 +13,6 @@ import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
 import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -150,7 +149,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot1, parkingLot2);
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
