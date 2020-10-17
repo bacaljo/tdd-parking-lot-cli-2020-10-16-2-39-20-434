@@ -8,11 +8,11 @@ import com.oocl.cultivation.exception.ParkingBoyManagementException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotServiceManagerTest {
@@ -62,5 +62,21 @@ class ParkingLotServiceManagerTest {
         // then
         Exception exception = assertThrows(ParkingBoyManagementException.class, executable);
         assertEquals(PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_return_the_correct_car_when_order_parking_boy_to_fetch_given_a_managed_parking_boy_and_a_ticket() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
+
+        // when
+        Car fetchedCar = parkingLotServiceManager.orderParkingBoyToFetch(parkingBoy, parkingTicket);
+
+        // then
+        assertSame(car, fetchedCar);
     }
 }

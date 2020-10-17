@@ -31,4 +31,8 @@ public class ParkingLotServiceManager {
 
         return parkingBoy.park(car);
     }
+
+    public Car orderParkingBoyToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        return null;
+    }
 }
