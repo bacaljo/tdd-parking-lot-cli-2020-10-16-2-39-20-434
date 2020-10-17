@@ -60,6 +60,6 @@ public class ParkingLot {
     }
 
     public double getAvailablePositionRate() {
-        return 0;
+        return (double) countEmptyPositions() / (double) capacity;
     }
 }
