@@ -223,4 +223,22 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedEmptyPositions, emptyPositions);
     }
+
+    @Test
+    public void should_return_eight_over_ten_when_get_available_position_rate_given_a_parking_lot_with_5_capacity_and_4_parked_cars() {
+        // GIVEN
+        int capacity = 5;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        parkingLot.park(new Car());
+        parkingLot.park(new Car());
+        parkingLot.park(new Car());
+        parkingLot.park(new Car());
+        double expectedAvailablePositionRate = .8;
+
+        // WHEN
+        double availablePositionRate = parkingLot.getAvailablePositionRate();
+
+        // THEN
+        assertEquals(expectedAvailablePositionRate, availablePositionRate);
+    }
 }

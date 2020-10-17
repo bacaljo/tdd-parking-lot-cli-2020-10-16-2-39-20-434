@@ -58,4 +58,8 @@ public class ParkingLot {
     public int countEmptyPositions() {
         return capacity - getNumberOfParkedCars();
     }
+
+    public double getAvailablePositionRate() {
+        return 0;
+    }
 }
