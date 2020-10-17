@@ -1,7 +1,7 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.MissingParkingTicketException;
-import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
+import com.oocl.cultivation.strategy.DefaultFetchingStrategy;
+import com.oocl.cultivation.strategy.FetchingStrategy;
 import com.oocl.cultivation.strategy.ParkingStrategy;
 
 import java.util.List;
@@ -9,10 +9,12 @@ import java.util.List;
 public class ParkingBoy {
     protected final List<ParkingLot> parkingLotList;
     private final ParkingStrategy parkingStrategy;
+    private final FetchingStrategy fetchingStrategy;
 
     public ParkingBoy(ParkingStrategy parkingStrategy, List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
         this.parkingStrategy = parkingStrategy;
+        fetchingStrategy = new DefaultFetchingStrategy();
     }
 
     public ParkingTicket park(Car car) {
@@ -20,22 +22,7 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        if (parkingTicket == null) {
-            throw new MissingParkingTicketException();
-        }
-
-        for (ParkingLot parkingLot : parkingLotList) {
-            if (parkingLot.isTicketInUsedTicketList(parkingTicket)) {
-                throw new UnrecognizedParkingTicketException();
-            }
-
-            Car car = parkingLot.fetch(parkingTicket);
-            if (car != null) {
-                return car;
-            }
-        }
-
-        throw new UnrecognizedParkingTicketException();
+        return fetchingStrategy.fetch(parkingTicket, parkingLotList);
     }
 
     public List<ParkingLot> getParkingLotList() {
