@@ -1,8 +1,8 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.strategy.ParkingStrategy;
 import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
 import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
-import com.oocl.cultivation.strategy.ParkingStrategy;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 public class TestHelper {
