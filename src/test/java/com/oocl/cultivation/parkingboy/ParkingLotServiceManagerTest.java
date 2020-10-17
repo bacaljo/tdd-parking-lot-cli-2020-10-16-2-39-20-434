@@ -79,4 +79,22 @@ class ParkingLotServiceManagerTest {
         // then
         assertSame(car, fetchedCar);
     }
+
+    @Test
+    public void should_throw_an_error_when_order_parking_boy_to_fetch_given_an_unmanaged_parking_boy() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.orderParkingBoyToFetch(parkingBoy, parkingTicket);
+        };
+
+        // then
+        Exception exception = assertThrows(ParkingBoyManagementException.class, executable);
+        assertEquals(PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE, exception.getMessage());
+    }
 }
