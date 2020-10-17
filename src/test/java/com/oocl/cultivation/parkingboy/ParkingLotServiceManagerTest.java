@@ -16,10 +16,24 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotServiceManagerTest {
+
+    @Test
+    public void should_have_a_list_of_parking_lot_when_initialized_given_a_list_of_parking_lot() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        int expectedParkingLotCount = 1;
+
+        // when
+        int parkingLotCount = parkingLotServiceManager.getParkingLotList().size();
+
+        // then
+        assertEquals(expectedParkingLotCount, parkingLotCount);
+    }
+
     @Test
     public void should_get_2_parking_boys_when_manage_parking_boys_given_2_parking_boys() {
         // given
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy1 = new ParkingBoy(new ParkingLot());
         ParkingBoy parkingBoy2 = new ParkingBoy(new ParkingLot());
 
@@ -35,7 +49,7 @@ class ParkingLotServiceManagerTest {
     @Test
     public void should_return_ticket_when_order_parking_boy_to_park_given_a_managed_parking_boy_and_car() {
         // given
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
         Car car = new Car();
@@ -50,7 +64,7 @@ class ParkingLotServiceManagerTest {
     @Test
     public void should_throw_an_error_when_order_parking_boy_to_park_given_an_unmanaged_parking_boy() {
         // given
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         Car car = new Car();
 
@@ -67,7 +81,7 @@ class ParkingLotServiceManagerTest {
     @Test
     public void should_return_the_correct_car_when_order_parking_boy_to_fetch_given_a_managed_parking_boy_and_a_ticket() {
         // given
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
@@ -83,7 +97,7 @@ class ParkingLotServiceManagerTest {
     @Test
     public void should_throw_an_error_when_order_parking_boy_to_fetch_given_an_unmanaged_parking_boy() {
         // given
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
