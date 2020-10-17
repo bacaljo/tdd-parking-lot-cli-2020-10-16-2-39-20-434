@@ -28,10 +28,11 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
-    public void should_return_ticket_when_order_parking_boy_to_park_given_parking_boy_and_car() {
+    public void should_return_ticket_when_order_parking_boy_to_park_given_a_managed_parking_boy_and_car() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager();
         ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
         Car car = new Car();
 
         // when
