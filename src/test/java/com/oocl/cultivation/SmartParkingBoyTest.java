@@ -247,15 +247,13 @@ class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_three_parking_lots_with_cars_and_an_unassociated_ticket() {
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_two_parking_lots_with_cars_and_an_unassociated_ticket() {
         // GIVEN
         int capacity = 2;
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
         // WHEN
