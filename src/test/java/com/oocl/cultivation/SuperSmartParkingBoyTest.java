@@ -11,6 +11,7 @@ import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
 import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -144,21 +145,9 @@ class SuperSuperSmartParkingBoyTest {
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_larger_available_position_rate() {
         // GIVEN
         int parkingLot1ExpectedSize = 4;
-        int capacity1 = 15;
-        int capacity2 = 20;
 
-        ParkingLot parkingLot1 = new ParkingLot(capacity1);
-        ParkingLot parkingLot2 = new ParkingLot(capacity2);
-
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(15, 3);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(20, 5);
 
         ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
@@ -174,21 +163,9 @@ class SuperSuperSmartParkingBoyTest {
     public void should_park_car_in_second_parking_lot_when_park_given_two_parking_lots_where_second_has_more_larger_available_position_rate() {
         // GIVEN
         int parkingLot2ExpectedSize = 4;
-        int capacity1 = 20;
-        int capacity2 = 15;
 
-        ParkingLot parkingLot1 = new ParkingLot(capacity1);
-        ParkingLot parkingLot2 = new ParkingLot(capacity2);
-
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(20, 5);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
 
         ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
