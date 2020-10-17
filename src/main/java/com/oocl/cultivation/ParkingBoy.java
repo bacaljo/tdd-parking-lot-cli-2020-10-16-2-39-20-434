@@ -6,15 +6,10 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static java.util.function.Predicate.not;
 
 public class ParkingBoy {
     protected final List<ParkingLot> parkingLotList;
-
-    public ParkingBoy(ParkingLot parkingLot) {
-        this(asList(parkingLot));
-    }
 
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
