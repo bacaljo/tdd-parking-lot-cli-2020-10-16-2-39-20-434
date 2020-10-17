@@ -16,6 +16,7 @@ import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.PARKING_BOY_MANAGEMENT_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestHelper.SEQUENTIAL_PARKING_STRATEGY;
 import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
@@ -44,8 +45,8 @@ class ParkingLotServiceManagerTest {
     public void should_get_2_parking_boys_when_manage_parking_boys_given_2_parking_boys() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy1 = new ParkingBoy(asList(new ParkingLot()));
-        ParkingBoy parkingBoy2 = new ParkingBoy(asList(new ParkingLot()));
+        ParkingBoy parkingBoy1 = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy2 = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
 
         int parkingBoysCount = 2;
 
@@ -60,7 +61,7 @@ class ParkingLotServiceManagerTest {
     public void should_return_ticket_when_order_parking_boy_to_park_given_a_managed_parking_boy_and_car() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(new ParkingLot()));
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
         parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
         Car car = new Car();
 
@@ -75,7 +76,7 @@ class ParkingLotServiceManagerTest {
     public void should_throw_an_error_when_order_parking_boy_to_park_given_an_unmanaged_parking_boy() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(new ParkingLot()));
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
         Car car = new Car();
 
         // when
@@ -92,7 +93,7 @@ class ParkingLotServiceManagerTest {
     public void should_return_the_correct_car_when_order_parking_boy_to_fetch_given_a_managed_parking_boy_and_a_ticket() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(new ParkingLot()));
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
@@ -108,7 +109,7 @@ class ParkingLotServiceManagerTest {
     public void should_throw_an_error_when_order_parking_boy_to_fetch_given_an_unmanaged_parking_boy() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(new ParkingLot()));
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
 

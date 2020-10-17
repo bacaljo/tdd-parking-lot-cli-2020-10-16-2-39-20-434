@@ -5,6 +5,7 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.ParkingBoyManagementException;
+import com.oocl.cultivation.strategy.SequentialParkingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
     private List<ParkingBoy> managementList;
 
     public ParkingLotServiceManager(List<ParkingLot> parkingLot) {
-        super(parkingLot);
+        super(new SequentialParkingStrategy(), parkingLot);
         managementList = new ArrayList<>();
     }
 

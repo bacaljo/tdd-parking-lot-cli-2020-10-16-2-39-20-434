@@ -1,27 +1,21 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 
 import java.util.List;
 
-import static java.util.function.Predicate.not;
-
 public class ParkingBoy {
     protected final List<ParkingLot> parkingLotList;
+    private final ParkingStrategy parkingStrategy;
 
-    public ParkingBoy(List<ParkingLot> parkingLotList) {
+    public ParkingBoy(ParkingStrategy parkingStrategy, List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
+        this.parkingStrategy = parkingStrategy;
     }
 
     public ParkingTicket park(Car car) {
-        ParkingLot parkingLot = parkingLotList.stream()
-                .filter(not(ParkingLot::isFull))
-                .findFirst()
-                .orElseThrow(FullParkingException::new);
-
-        return parkingLot.park(car);
+        return parkingStrategy.park(car, parkingLotList);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
