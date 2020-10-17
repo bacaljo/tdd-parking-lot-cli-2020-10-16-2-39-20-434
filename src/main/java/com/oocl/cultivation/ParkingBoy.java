@@ -7,7 +7,7 @@ import com.oocl.cultivation.strategy.ParkingStrategy;
 import java.util.List;
 
 public class ParkingBoy {
-    protected final List<ParkingLot> parkingLotList;
+    private final List<ParkingLot> parkingLotList;
     private final ParkingStrategy parkingStrategy;
     private final FetchingStrategy fetchingStrategy;
 
