@@ -182,4 +182,29 @@ class SmartParkingBoyTest {
         // THEN
         assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
+
+    @Test
+    public void should_park_car_in_second_parking_lot_when_park_given_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
+        // GIVEN
+        int parkingLot2ExpectedSize = 2;
+        int capacity = 2;
+
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        ParkingLot parkingLot3 = new ParkingLot(capacity);
+
+        parkingLot1.park(new Car());
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot3.park(new Car());
+
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        Car car = new Car();
+
+        // WHEN
+        smartParkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+    }
 }
