@@ -12,8 +12,8 @@ public class ParkingLotServiceManager {
         managementList = new ArrayList<>();
     }
 
-    public void manageParkingBoy(ParkingBoy parkingBoy) {
-        managementList.add(parkingBoy);
+    public void manageParkingBoys(List<ParkingBoy> parkingBoyList) {
+        managementList.addAll(parkingBoyList);
     }
 
     public List<ParkingBoy> getManagementList() {
