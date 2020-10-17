@@ -16,7 +16,7 @@ public class SuperSmartParkingBoy extends ParkingBoy {
     public ParkingTicket park(Car car) {
         ParkingLot parkingLot = parkingLotList.stream()
                 .reduce((largestAvailablePositionRateParkingLot, p) ->
-                        ((double) p.countEmptyPositions() / (double) p.getCapacity() > (double) largestAvailablePositionRateParkingLot.countEmptyPositions() / (double) largestAvailablePositionRateParkingLot.getCapacity())
+                        (p.getAvailablePositionRate() > largestAvailablePositionRateParkingLot.getAvailablePositionRate())
                                 ? p
                                 : largestAvailablePositionRateParkingLot)
                 .orElseThrow(FullParkingException::new);
