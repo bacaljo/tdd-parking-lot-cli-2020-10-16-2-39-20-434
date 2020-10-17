@@ -207,4 +207,117 @@ class SmartParkingBoyTest {
         // THEN
         assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
+
+    @Test
+    public void should_return_car_when_fetch_given_car_is_parked_in_the_third_parking_lot() {
+        // GIVEN
+        int capacity = 2;
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        ParkingLot parkingLot3 = new ParkingLot(capacity);
+
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingLot3.park(car);
+
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+
+        // WHEN
+        Car fetchedCar = parkingBoy.fetch(parkingTicket);
+
+        // THEN
+        assertSame(car, fetchedCar);
+    }
+
+    @Test
+    public void should_throw_missing_parking_ticket_exception_when_fetch_given_two_parking_lots_and_a_null_ticket() {
+        // GIVEN
+        int capacity = 2;
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingTicket nullParkingTicket = null;
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.fetch(nullParkingTicket);
+        };
+
+        // THEN
+        Exception exception = assertThrows(MissingParkingTicketException.class, executable);
+        assertEquals(MISSING_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_three_parking_lots_with_cars_and_an_unassociated_ticket() {
+        // GIVEN
+        int capacity = 2;
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+
+        ParkingBoy parkingBoy = new SmartParkingBoy(new ParkingLot());
+        ParkingTicket fakeParkingTicket = new ParkingTicket();
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.fetch(fakeParkingTicket);
+        };
+
+        // THEN
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
+        assertEquals(UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_two_parking_lots_and_an_already_used_ticket() {
+        // GIVEN
+        int capacity = 2;
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        parkingBoy.fetch(parkingTicket);
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.fetch(parkingTicket);
+        };
+
+        // THEN
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
+        assertEquals(UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_a_full_parking_exception_when_park_given_three_full_parking_lots() {
+        // GIVEN
+        int capacity = 1;
+        ParkingLot parkingLot1 = new ParkingLot(capacity);
+        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        ParkingLot parkingLot3 = new ParkingLot(capacity);
+        parkingLot1.park(new Car());
+        parkingLot2.park(new Car());
+        parkingLot3.park(new Car());
+
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        Car car = new Car();
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.park(car);
+        };
+
+        // THEN
+        Exception exception = assertThrows(FullParkingException.class, executable);
+        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
+    }
 }
