@@ -1,8 +1,8 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.strategy.DefaultFetchingStrategy;
 import com.oocl.cultivation.strategy.FetchingStrategy;
 import com.oocl.cultivation.strategy.ParkingStrategy;
+import com.oocl.cultivation.strategy.fetching.DefaultFetchingStrategy;
 
 import java.util.List;
 
