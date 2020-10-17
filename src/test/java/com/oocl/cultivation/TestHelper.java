@@ -1,8 +1,9 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.strategy.LargestAvailableRateParkingStrategy;
-import com.oocl.cultivation.strategy.MostEmptyParkingStrategy;
-import com.oocl.cultivation.strategy.SequentialParkingStrategy;
+import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
+import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
+import com.oocl.cultivation.strategy.ParkingStrategy;
+import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 public class TestHelper {
     public static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";

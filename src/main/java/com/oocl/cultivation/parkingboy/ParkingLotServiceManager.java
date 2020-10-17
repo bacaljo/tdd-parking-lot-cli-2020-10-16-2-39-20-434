@@ -5,7 +5,7 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.ParkingBoyManagementException;
-import com.oocl.cultivation.strategy.SequentialParkingStrategy;
+import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;

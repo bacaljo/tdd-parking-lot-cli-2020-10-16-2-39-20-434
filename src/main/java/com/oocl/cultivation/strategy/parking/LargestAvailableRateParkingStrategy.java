@@ -1,10 +1,10 @@
-package com.oocl.cultivation.strategy;
+package com.oocl.cultivation.strategy.parking;
 
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.ParkingStrategy;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.strategy.ParkingStrategy;
 
 import java.util.List;
 
