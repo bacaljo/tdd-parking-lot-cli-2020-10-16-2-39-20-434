@@ -11,6 +11,7 @@ import static com.oocl.cultivation.TestConstants.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestConstants.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestConstants.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestConstants.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestConstants.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -153,7 +154,6 @@ class SmartParkingBoyTest {
     @Test
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_empty_positions() {
         // GIVEN
-        int parkingLot1ExpectedSize = 2;
         int capacity = 3;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
@@ -161,17 +161,20 @@ class SmartParkingBoyTest {
         ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 2;
+        int parkingLot2ExpectedSize = 2;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
         assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
     public void should_park_car_in_second_parking_lot_when_park_given_two_parking_lots_where_second_has_more_empty_positions() {
         // GIVEN
-        int parkingLot2ExpectedSize = 2;
         int capacity = 3;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
@@ -179,17 +182,20 @@ class SmartParkingBoyTest {
         ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 2;
+        int parkingLot2ExpectedSize = 2;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
     public void should_park_car_in_second_parking_lot_when_park_given_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
         // GIVEN
-        int parkingLot2ExpectedSize = 2;
         int capacity = 2;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
@@ -199,11 +205,17 @@ class SmartParkingBoyTest {
         ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 2;
+        int parkingLot2ExpectedSize = 2;
+        int parkingLot3ExpectedSize = 1;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot3ExpectedSize, parkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
