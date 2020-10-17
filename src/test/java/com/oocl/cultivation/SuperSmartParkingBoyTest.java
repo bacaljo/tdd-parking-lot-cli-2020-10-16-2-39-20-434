@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class SuperSuperSmartParkingBoyTest {
+class SuperSmartParkingBoyTest {
 
     @Test
     public void should_return_a_parking_ticket_when_park_given_a_car() {
