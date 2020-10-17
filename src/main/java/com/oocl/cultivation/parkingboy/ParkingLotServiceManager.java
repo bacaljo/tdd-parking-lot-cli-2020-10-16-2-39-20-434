@@ -24,20 +24,23 @@ public class ParkingLotServiceManager {
     }
 
     public ParkingTicket orderParkingBoyToPark(ParkingBoy parkingBoy, Car car) {
-        boolean parkingBoyIsNotManaged = !managementList.contains(parkingBoy);
-        if (parkingBoyIsNotManaged) {
-            throw new ParkingBoyManagementException();
-        }
+        validateIfParkingBoyIsUnderManagement(parkingBoy);
 
         return parkingBoy.park(car);
     }
 
     public Car orderParkingBoyToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
-        boolean parkingBoyIsNotManaged = !managementList.contains(parkingBoy);
-        if (parkingBoyIsNotManaged) {
-            throw new ParkingBoyManagementException();
-        }
+        validateIfParkingBoyIsUnderManagement(parkingBoy);
 
         return parkingBoy.fetch(parkingTicket);
+    }
+
+    private void validateIfParkingBoyIsUnderManagement(ParkingBoy parkingBoy) {
+        boolean parkingBoyManaged = managementList.contains(parkingBoy);
+        if (parkingBoyManaged) {
+            return;
+        }
+
+        throw new ParkingBoyManagementException();
     }
 }
