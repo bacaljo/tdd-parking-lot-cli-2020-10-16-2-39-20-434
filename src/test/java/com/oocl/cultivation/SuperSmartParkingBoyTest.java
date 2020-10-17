@@ -144,36 +144,40 @@ class SuperSuperSmartParkingBoyTest {
     @Test
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_larger_available_position_rate() {
         // GIVEN
-        int parkingLot1ExpectedSize = 4;
-
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(15, 3);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(20, 5);
 
         ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 4;
+        int parkingLot2ExpectedSize = 5;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
         assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
     public void should_park_car_in_second_parking_lot_when_park_given_two_parking_lots_where_second_has_more_larger_available_position_rate() {
         // GIVEN
-        int parkingLot2ExpectedSize = 4;
-
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(20, 5);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
 
         ParkingBoy parkingBoy = new SuperSmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
+        int parkingLot1ExpectedSize = 5;
+        int parkingLot2ExpectedSize = 4;
+
         // WHEN
         parkingBoy.park(car);
 
         // THEN
+        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 }
