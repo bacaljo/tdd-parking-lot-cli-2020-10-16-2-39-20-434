@@ -7,11 +7,12 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.function.Predicate.not;
 
 public class ParkingBoy {
     protected final List<ParkingLot> parkingLotList;
 
-    public ParkingBoy(ParkingLot... parkingLot) {
+    public ParkingBoy(ParkingLot parkingLot) {
         this(asList(parkingLot));
     }
 
@@ -20,14 +21,12 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        for (ParkingLot parkingLot : parkingLotList) {
-            boolean isNotYetFull = parkingLot.getCapacity() != parkingLot.getNumberOfParkedCars();
-            if (isNotYetFull) {
-                return parkingLot.park(car);
-            }
-        }
+        ParkingLot parkingLot = parkingLotList.stream()
+                .filter(not(ParkingLot::isFull))
+                .findFirst()
+                .orElseThrow(FullParkingException::new);
 
-        throw new FullParkingException();
+        return parkingLot.park(car);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {

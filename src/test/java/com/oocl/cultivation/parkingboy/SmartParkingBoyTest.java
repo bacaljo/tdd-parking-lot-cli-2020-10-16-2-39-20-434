@@ -174,7 +174,7 @@ class SmartParkingBoyTest {
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -197,7 +197,7 @@ class SmartParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -224,7 +224,7 @@ class SmartParkingBoyTest {
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot3.park(car);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2, parkingLot3));
 
         // WHEN
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
@@ -240,7 +240,7 @@ class SmartParkingBoyTest {
         ParkingLot parkingLot1 = new ParkingLot(capacity);
         ParkingLot parkingLot2 = new ParkingLot(capacity);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         ParkingTicket nullParkingTicket = null;
 
         // WHEN
@@ -260,7 +260,7 @@ class SmartParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
         // WHEN
@@ -280,7 +280,7 @@ class SmartParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(parkingTicket);
@@ -303,7 +303,7 @@ class SmartParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
+        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN

@@ -9,7 +9,7 @@ import com.oocl.cultivation.exception.FullParkingException;
 import java.util.List;
 
 public class SmartParkingBoy extends ParkingBoy {
-    public SmartParkingBoy(ParkingLot... parkingLot) {
+    public SmartParkingBoy(ParkingLot parkingLot) {
         super(parkingLot);
     }
 
