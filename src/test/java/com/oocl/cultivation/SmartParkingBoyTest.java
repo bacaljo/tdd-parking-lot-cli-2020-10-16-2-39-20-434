@@ -141,18 +141,24 @@ class SmartParkingBoyTest {
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
+    private ParkingLot generateParkingLotWithDummyCars(int capacity, int numberOfCars) {
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        for (int i = 0; i < numberOfCars; i++) {
+            parkingLot.park(new Car());
+        }
+
+        return parkingLot;
+    }
+
     @Test
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_where_first_has_more_empty_positions() {
         // GIVEN
         int parkingLot1ExpectedSize = 2;
         int capacity = 3;
 
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 2);
+        ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
         Car car = new Car();
 
         // WHEN
@@ -168,11 +174,8 @@ class SmartParkingBoyTest {
         int parkingLot2ExpectedSize = 2;
         int capacity = 3;
 
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingBoy parkingBoy = new SmartParkingBoy(asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
@@ -189,14 +192,9 @@ class SmartParkingBoyTest {
         int parkingLot2ExpectedSize = 2;
         int capacity = 2;
 
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        ParkingLot parkingLot3 = new ParkingLot(capacity);
-
-        parkingLot1.park(new Car());
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot3.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
         ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
         Car car = new Car();
@@ -212,12 +210,9 @@ class SmartParkingBoyTest {
     public void should_return_car_when_fetch_given_car_is_parked_in_the_third_parking_lot() {
         // GIVEN
         int capacity = 2;
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = new ParkingLot(capacity);
-
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
 
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot3.park(car);
@@ -277,10 +272,8 @@ class SmartParkingBoyTest {
     public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_two_parking_lots_and_an_already_used_ticket() {
         // GIVEN
         int capacity = 2;
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
         ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
         Car car = new Car();
@@ -301,12 +294,9 @@ class SmartParkingBoyTest {
     public void should_throw_a_full_parking_exception_when_park_given_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
-        ParkingLot parkingLot1 = new ParkingLot(capacity);
-        ParkingLot parkingLot2 = new ParkingLot(capacity);
-        ParkingLot parkingLot3 = new ParkingLot(capacity);
-        parkingLot1.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot3.park(new Car());
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
         ParkingBoy parkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
         Car car = new Car();
