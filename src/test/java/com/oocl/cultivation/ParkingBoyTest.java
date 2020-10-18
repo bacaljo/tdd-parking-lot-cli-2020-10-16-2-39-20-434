@@ -1,6 +1,7 @@
 package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.InvalidParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.function.Executable;
 
 import static com.oocl.cultivation.TestHelper.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.INVALID_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.LARGEST_AVAILABLE_RATE_PARKING_STRATEGY;
 import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.MOST_EMPTY_PARKING_STRATEGY;
@@ -125,6 +127,23 @@ class ParkingBoyTest {
         // THEN
         Exception exception = assertThrows(UnrecognizedParkingTicketException.class, executable);
         assertEquals(UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_invalid_parking_exception_with_message_when_fetch_given_unassociated_ticket() {
+        // GIVEN
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        parkingBoy.park(car);
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.park(car);
+        };
+
+        // THEN
+        Exception exception = assertThrows(InvalidParkingException.class, executable);
+        assertEquals(INVALID_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
