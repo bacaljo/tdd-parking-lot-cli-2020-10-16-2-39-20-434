@@ -13,14 +13,10 @@ public class DefaultFetchingStrategy implements FetchingStrategy {
 
     @Override
     public Car fetch(ParkingTicket parkingTicket, List<ParkingLot> parkingLotList) {
-        if (parkingTicket == null) {
-            throw new MissingParkingTicketException();
-        }
+        validateForMissingParkingTicket(parkingTicket);
 
         for (ParkingLot parkingLot : parkingLotList) {
-            if (parkingLot.isTicketInUsedTicketList(parkingTicket)) {
-                throw new UnrecognizedParkingTicketException();
-            }
+            validateForUsedParkingTicket(parkingTicket, parkingLot);
 
             Car car = parkingLot.fetch(parkingTicket);
             if (car != null) {
@@ -29,5 +25,17 @@ public class DefaultFetchingStrategy implements FetchingStrategy {
         }
 
         throw new UnrecognizedParkingTicketException();
+    }
+
+    private void validateForMissingParkingTicket(ParkingTicket parkingTicket) {
+        if (parkingTicket == null) {
+            throw new MissingParkingTicketException();
+        }
+    }
+
+    private void validateForUsedParkingTicket(ParkingTicket parkingTicket, ParkingLot parkingLot) {
+        if (parkingLot.isTicketInUsedTicketList(parkingTicket)) {
+            throw new UnrecognizedParkingTicketException();
+        }
     }
 }
