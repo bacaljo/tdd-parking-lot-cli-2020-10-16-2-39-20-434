@@ -7,12 +7,12 @@ import com.oocl.cultivation.strategy.fetching.DefaultFetchingStrategy;
 
 import java.util.List;
 
-public class ParkingBoy {
+public abstract class ParkingLotEmployee {
     private final List<ParkingLot> parkingLotList;
     private final ParkingStrategy parkingStrategy;
     private final FetchingStrategy fetchingStrategy;
 
-    public ParkingBoy(ParkingStrategy parkingStrategy, List<ParkingLot> parkingLotList) {
+    public ParkingLotEmployee(ParkingStrategy parkingStrategy, List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
         this.parkingStrategy = parkingStrategy;
         fetchingStrategy = new DefaultFetchingStrategy();
