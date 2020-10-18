@@ -321,16 +321,16 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_most_empty_parking_strategy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy parkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
-        parkingBoy.park(new Car());
+        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
+        smartParkingBoy.park(new Car());
         Car anotherCar = new Car();
 
         // WHEN
         Executable executable = () -> {
-            parkingBoy.park(anotherCar);
+            smartParkingBoy.park(anotherCar);
         };
 
         // THEN
@@ -339,49 +339,49 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_first_parking_lot_when_park_given_most_empty_parking_strategy_and_two_parking_lots_where_first_has_more_empty_positions() {
+    public void should_park_car_in_first_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_where_first_has_more_empty_positions() {
         // GIVEN
         int capacity = 3;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingBoy parkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
         int parkingLot2ExpectedSize = 2;
 
         // WHEN
-        parkingBoy.park(car);
+        smartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_most_empty_parking_strategy_and_two_parking_lots_where_second_has_more_empty_positions() {
+    public void should_park_car_in_second_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_where_second_has_more_empty_positions() {
         // GIVEN
         int capacity = 3;
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingBoy parkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
         int parkingLot2ExpectedSize = 2;
 
         // WHEN
-        parkingBoy.park(car);
+        smartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_most_empty_parking_strategy_and_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
+    public void should_park_car_in_second_parking_lot_when_park_given_a_smart_parking_boy_and_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
         // GIVEN
         int capacity = 2;
 
@@ -389,7 +389,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -397,28 +397,28 @@ class ParkingBoyTest {
         int parkingLot3ExpectedSize = 1;
 
         // WHEN
-        parkingBoy.park(car);
+        smartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot3ExpectedSize, parkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot3ExpectedSize, smartParkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_most_empty_parking_strategy_and_three_full_parking_lots() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN
         Executable executable = () -> {
-            parkingBoy.park(car);
+            smartParkingBoy.park(car);
         };
 
         // THEN
@@ -427,7 +427,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_largest_available_rate_parking_strategy_and_three_full_parking_lots() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
 
@@ -435,12 +435,12 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN
         Executable executable = () -> {
-            parkingBoy.park(car);
+            superSmartParkingBoy.park(car);
         };
 
         // THEN
@@ -449,16 +449,16 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_largest_available_rate_parking_strategy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy parkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
-        parkingBoy.park(new Car());
+        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
+        superSmartParkingBoy.park(new Car());
         Car anotherCar = new Car();
 
         // WHEN
         Executable executable = () -> {
-            parkingBoy.park(anotherCar);
+            superSmartParkingBoy.park(anotherCar);
         };
 
         // THEN
@@ -467,53 +467,53 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_first_parking_lot_when_park_given_largest_available_rate_parking_strategy_and_two_parking_lots_where_first_has_more_larger_available_position_rate() {
+    public void should_park_car_in_first_parking_lot_when_park_given_a_super_smart_parking_boy_and_two_parking_lots_where_first_has_more_larger_available_position_rate() {
         // GIVEN
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(15, 3);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(20, 5);
 
-        ParkingBoy parkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 4;
         int parkingLot2ExpectedSize = 5;
 
         // WHEN
-        parkingBoy.park(car);
+        superSmartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, superSmartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_largest_available_rate_parking_strategy_and_two_parking_lots_where_second_has_more_larger_available_position_rate() {
+    public void should_park_car_in_second_parking_lot_when_park_given_a_super_smart_parking_boy_and_two_parking_lots_where_second_has_more_larger_available_position_rate() {
         // GIVEN
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(20, 5);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
 
-        ParkingBoy parkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 5;
         int parkingLot2ExpectedSize = 4;
 
         // WHEN
-        parkingBoy.park(car);
+        superSmartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, superSmartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_largest_available_rate_parking_strategy_and_three_parking_lots_where_second_and_third_both_have_the_same_higher_available_position_rate() {
+    public void should_park_car_in_second_parking_lot_when_park_given_a_super_smart_parking_boy_and_three_parking_lots_where_second_and_third_both_have_the_same_higher_available_position_rate() {
         // GIVEN
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(20, 5);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(25, 5);
 
-        ParkingBoy parkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 5;
@@ -521,11 +521,11 @@ class ParkingBoyTest {
         int parkingLot3ExpectedSize = 5;
 
         // WHEN
-        parkingBoy.park(car);
+        superSmartParkingBoy.park(car);
 
         // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot3ExpectedSize, parkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, superSmartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        assertEquals(parkingLot3ExpectedSize, superSmartParkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
     }
 }
