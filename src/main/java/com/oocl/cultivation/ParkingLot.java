@@ -2,16 +2,13 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.FullParkingException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
     private static final int DEFAULT_CAPACITY = 10;
 
     private final Map<ParkingTicket, Car> parkingTicketCarMap;
-    private final List<ParkingTicket> usedParkingTicketList;
     private final int capacity;
 
     public ParkingLot() {
@@ -21,7 +18,6 @@ public class ParkingLot {
     public ParkingLot(int capacity) {
         this.capacity = capacity;
         parkingTicketCarMap = new HashMap<>();
-        usedParkingTicketList = new ArrayList<>();
     }
 
     public ParkingTicket park(Car car) {
@@ -41,7 +37,6 @@ public class ParkingLot {
     public Car fetch(ParkingTicket parkingTicket) {
         Car car = parkingTicketCarMap.get(parkingTicket);
         parkingTicketCarMap.remove(parkingTicket, car);
-        usedParkingTicketList.add(parkingTicket);
 
         return car;
     }
