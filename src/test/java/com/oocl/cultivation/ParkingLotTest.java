@@ -169,52 +169,6 @@ class ParkingLotTest {
     }
 
     @Test
-    public void should_return_true_when_is_ticket_in_used_ticket_list_given_used_ticket() {
-        // GIVEN
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingTicket parkingTicket = parkingLot.park(new Car());
-        parkingLot.fetch(parkingTicket);
-
-        boolean expectedResult = true;
-
-        // WHEN
-        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(parkingTicket);
-
-        // THEN
-        assertEquals(expectedResult, isTicketInUsedTicketList);
-    }
-
-    @Test
-    public void should_return_false_when_is_ticket_in_used_ticket_list_given_unassociated_ticket() {
-        // GIVEN
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingTicket unassociatedTicket = new ParkingTicket();
-
-        boolean expectedResult = false;
-
-        // WHEN
-        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(unassociatedTicket);
-
-        // THEN
-        assertEquals(expectedResult, isTicketInUsedTicketList);
-    }
-
-    @Test
-    public void should_return_false_when_is_ticket_in_used_ticket_list_given_null_ticket() {
-        // GIVEN
-        ParkingLot parkingLot = new ParkingLot();
-        ParkingTicket nullTicket = null;
-
-        boolean expectedResult = false;
-
-        // WHEN
-        boolean isTicketInUsedTicketList = parkingLot.isTicketInUsedTicketList(nullTicket);
-
-        // THEN
-        assertEquals(expectedResult, isTicketInUsedTicketList);
-    }
-
-    @Test
     public void should_return_one_when_count_empty_positions_given_a_parking_lot_with_the_capacity_of_three_have_two_parked_cars() {
         // GIVEN
         int capacity = 3;
