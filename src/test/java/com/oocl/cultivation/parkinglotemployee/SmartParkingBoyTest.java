@@ -1,4 +1,4 @@
-package com.oocl.cultivation.parkingboy;
+package com.oocl.cultivation.parkinglotemployee;
 
 import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingLot;

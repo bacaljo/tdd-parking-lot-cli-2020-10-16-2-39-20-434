@@ -4,7 +4,7 @@ import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.InvalidParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
-import com.oocl.cultivation.parkingboy.ParkingBoy;
+import com.oocl.cultivation.parkinglotemployee.ParkingBoy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
