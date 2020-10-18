@@ -27,18 +27,18 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public ParkingTicket orderParkingBoyToPark(ParkingBoy parkingBoy, Car car) {
-        validateIfParkingBoyIsUnderManagement(parkingBoy);
+        validateForUnmanagedParkingBoy(parkingBoy);
 
         return parkingBoy.park(car);
     }
 
     public Car orderParkingBoyToFetch(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
-        validateIfParkingBoyIsUnderManagement(parkingBoy);
+        validateForUnmanagedParkingBoy(parkingBoy);
 
         return parkingBoy.fetch(parkingTicket);
     }
 
-    private void validateIfParkingBoyIsUnderManagement(ParkingBoy parkingBoy) {
+    private void validateForUnmanagedParkingBoy(ParkingBoy parkingBoy) {
         boolean parkingBoyManaged = managementList.contains(parkingBoy);
         if (parkingBoyManaged) {
             return;
