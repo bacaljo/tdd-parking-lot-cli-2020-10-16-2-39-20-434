@@ -130,11 +130,12 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_invalid_parking_exception_with_message_when_fetch_given_unassociated_ticket() {
+    public void should_throw_invalid_parking_exception_with_message_when_fetch_given_an_already_parked_car() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
-        parkingBoy.park(car);
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.park(car);
+        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot(), parkingLot));
 
         // WHEN
         Executable executable = () -> {
