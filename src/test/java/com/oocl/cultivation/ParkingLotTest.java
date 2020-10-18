@@ -17,6 +17,7 @@ class ParkingLotTest {
     public void should_have_a_default_capacity_of_10_when_is_initialized_given_no_capacity() {
         // GIVEN
         ParkingLot parkingLot;
+
         int defaultCapacity = 10;
 
         // WHEN
@@ -30,6 +31,7 @@ class ParkingLotTest {
     public void should_return_the_correct_capacity_when_is_initialized_given_a_capacity() {
         // GIVEN
         ParkingLot parkingLot;
+
         int capacity = 2;
 
         // WHEN
@@ -63,7 +65,7 @@ class ParkingLotTest {
         Car fetchedCar = parkingLot.fetch(parkingTicket);
 
         // THEN
-        assertSame(fetchedCar, car);
+        assertSame(car, fetchedCar);
     }
 
     @Test
@@ -81,8 +83,8 @@ class ParkingLotTest {
         Car fetchedCar2 = parkingLot.fetch(parkingTicket2);
 
         // THEN
-        assertSame(fetchedCar1, car1);
-        assertSame(fetchedCar2, car2);
+        assertSame(car1, fetchedCar1);
+        assertSame(car2, fetchedCar2);
     }
 
     @Test
@@ -156,6 +158,7 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         parkingLot.park(new Car());
         parkingLot.park(new Car());
+
         int expectedParkedCars = 2;
 
         // WHEN
@@ -171,6 +174,7 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket parkingTicket = parkingLot.park(new Car());
         parkingLot.fetch(parkingTicket);
+
         boolean expectedResult = true;
 
         // WHEN
@@ -185,6 +189,7 @@ class ParkingLotTest {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket unassociatedTicket = new ParkingTicket();
+
         boolean expectedResult = false;
 
         // WHEN
@@ -199,6 +204,7 @@ class ParkingLotTest {
         // GIVEN
         ParkingLot parkingLot = new ParkingLot();
         ParkingTicket nullTicket = null;
+
         boolean expectedResult = false;
 
         // WHEN
@@ -215,6 +221,7 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(capacity);
         parkingLot.park(new Car());
         parkingLot.park(new Car());
+
         int expectedEmptyPositions = 1;
 
         // WHEN
@@ -233,6 +240,7 @@ class ParkingLotTest {
         parkingLot.park(new Car());
         parkingLot.park(new Car());
         parkingLot.park(new Car());
+
         double expectedAvailablePositionRate = .2;
 
         // WHEN
@@ -248,6 +256,7 @@ class ParkingLotTest {
         int capacity = 1;
         ParkingLot parkingLot = new ParkingLot(capacity);
         parkingLot.park(new Car());
+
         boolean expectedResult = true;
 
         // WHEN

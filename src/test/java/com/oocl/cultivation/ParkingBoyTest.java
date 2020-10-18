@@ -50,7 +50,7 @@ class ParkingBoyTest {
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
 
         // THEN
-        assertSame(fetchedCar, car);
+        assertSame(car, fetchedCar);
     }
 
     @Test
@@ -69,8 +69,8 @@ class ParkingBoyTest {
         Car fetchedCar2 = parkingBoy.fetch(parkingTicket2);
 
         // THEN
-        assertSame(fetchedCar1, car1);
-        assertSame(fetchedCar2, car2);
+        assertSame(car1, fetchedCar1);
+        assertSame(car2, fetchedCar2);
     }
 
     @Test

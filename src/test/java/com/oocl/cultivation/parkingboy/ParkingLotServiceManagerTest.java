@@ -32,6 +32,7 @@ class ParkingLotServiceManagerTest {
     public void should_have_a_list_of_parking_lot_when_initialized_given_a_list_of_parking_lot() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+
         int expectedParkingLotCount = 1;
 
         // when
@@ -147,7 +148,7 @@ class ParkingLotServiceManagerTest {
         Car fetchedCar = parkingLotServiceManager.fetch(parkingTicket);
 
         // THEN
-        assertSame(fetchedCar, car);
+        assertSame(car, fetchedCar);
     }
 
     @Test
@@ -166,8 +167,8 @@ class ParkingLotServiceManagerTest {
         Car fetchedCar2 = parkingLotServiceManager.fetch(parkingTicket2);
 
         // THEN
-        assertSame(fetchedCar1, car1);
-        assertSame(fetchedCar2, car2);
+        assertSame(car1, fetchedCar1);
+        assertSame(car2, fetchedCar2);
     }
 
     @Test
