@@ -256,4 +256,21 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedResult, isFull);
     }
+
+    @Test
+    public void should_return_true_when_contains_parked_car_given_a_parked_car() {
+        // GIVEN
+        int capacity = 1;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        Car car = new Car();
+        parkingLot.park(car);
+
+        boolean expectedResult = true;
+
+        // WHEN
+        boolean containsParkedCar = parkingLot.containsParkedCar(car);
+
+        // THEN
+        assertEquals(expectedResult, containsParkedCar);
+    }
 }

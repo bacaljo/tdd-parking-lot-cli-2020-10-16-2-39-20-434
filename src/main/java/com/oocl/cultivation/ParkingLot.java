@@ -69,4 +69,8 @@ public class ParkingLot {
     public boolean isFull() {
         return getNumberOfParkedCars() == capacity;
     }
+
+    public boolean containsParkedCar(Car car) {
+        return false;
+    }
 }
