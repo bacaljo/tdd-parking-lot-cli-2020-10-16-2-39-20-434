@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.exception.InvalidParkingException;
 import com.oocl.cultivation.strategy.FetchingStrategy;
 import com.oocl.cultivation.strategy.ParkingStrategy;
 import com.oocl.cultivation.strategy.fetching.DefaultFetchingStrategy;
@@ -18,7 +19,16 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
+        validateForAlreadyParkedCar(car);
+
         return parkingStrategy.park(car, parkingLotList);
+    }
+
+    private void validateForAlreadyParkedCar(Car car) {
+        boolean isAlreadyParked = parkingLotList.stream().anyMatch(parkingLot -> parkingLot.containsParkedCar(car));
+        if (isAlreadyParked) {
+            throw new InvalidParkingException();
+        }
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
