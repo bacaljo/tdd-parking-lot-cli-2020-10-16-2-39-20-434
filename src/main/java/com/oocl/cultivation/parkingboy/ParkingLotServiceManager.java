@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingLotServiceManager extends ParkingBoy {
-    private List<ParkingBoy> managementList;
+    private final List<ParkingBoy> managementList;
 
     public ParkingLotServiceManager(List<ParkingLot> parkingLot) {
         super(new SequentialParkingStrategy(), parkingLot);
