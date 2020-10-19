@@ -2,8 +2,6 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.factory.ParkingBoyFactory;
 import com.oocl.cultivation.strategy.ParkingStrategy;
-import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
-import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.List;
@@ -18,8 +16,6 @@ public class TestHelper {
     public static final int SECOND_ELEMENT = 1;
     public static final int THIRD_ELEMENT = 2;
     public static final ParkingStrategy SEQUENTIAL_PARKING_STRATEGY = new SequentialParkingStrategy();
-    public static final ParkingStrategy MOST_EMPTY_PARKING_STRATEGY = new MostEmptyParkingStrategy();
-    public static final ParkingStrategy LARGEST_AVAILABLE_RATE_PARKING_STRATEGY = new LargestAvailableRateParkingStrategy();
 
     private TestHelper() {
     }
