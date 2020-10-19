@@ -149,24 +149,6 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
-        // GIVEN
-        int capacity = 1;
-        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot(capacity)));
-        parkingBoy.park(new Car());
-        Car anotherCar = new Car();
-
-        // WHEN
-        Executable executable = () -> {
-            parkingBoy.park(anotherCar);
-        };
-
-        // THEN
-        Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
-    }
-
-    @Test
     public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_that_are_still_not_full() {
         // GIVEN
         int capacity = 3;
@@ -322,42 +304,24 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
+    public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot(capacity)));
-        smartParkingBoy.park(new Car());
-        Car anotherCar = new Car();
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
+
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
+        Car car = new Car();
 
         // WHEN
         Executable executable = () -> {
-            smartParkingBoy.park(anotherCar);
+            smartParkingBoy.park(car);
         };
 
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
-    }
-
-    @Test
-    public void should_park_car_in_first_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_where_first_has_more_empty_positions() {
-        // GIVEN
-        int capacity = 3;
-
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
-        Car car = new Car();
-
-        int parkingLot1ExpectedSize = 2;
-        int parkingLot2ExpectedSize = 2;
-
-        // WHEN
-        smartParkingBoy.park(car);
-
-        // THEN
-        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
@@ -407,27 +371,6 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_three_full_parking_lots() {
-        // GIVEN
-        int capacity = 1;
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
-
-        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
-        Car car = new Car();
-
-        // WHEN
-        Executable executable = () -> {
-            smartParkingBoy.park(car);
-        };
-
-        // THEN
-        Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
-    }
-
-    @Test
     public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
@@ -447,44 +390,6 @@ class ParkingBoyTest {
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
-    }
-
-    @Test
-    public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
-        // GIVEN
-        int capacity = 1;
-        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(new ParkingLot(capacity)));
-        superSmartParkingBoy.park(new Car());
-        Car anotherCar = new Car();
-
-        // WHEN
-        Executable executable = () -> {
-            superSmartParkingBoy.park(anotherCar);
-        };
-
-        // THEN
-        Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
-    }
-
-    @Test
-    public void should_park_car_in_first_parking_lot_when_park_given_a_super_smart_parking_boy_and_two_parking_lots_where_first_has_more_larger_available_position_rate() {
-        // GIVEN
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(15, 3);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(20, 5);
-
-        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
-        Car car = new Car();
-
-        int parkingLot1ExpectedSize = 4;
-        int parkingLot2ExpectedSize = 5;
-
-        // WHEN
-        superSmartParkingBoy.park(car);
-
-        // THEN
-        assertEquals(parkingLot1ExpectedSize, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, superSmartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
     }
 
     @Test
