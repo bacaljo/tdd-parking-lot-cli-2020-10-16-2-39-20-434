@@ -149,25 +149,29 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_first_parking_lot_when_park_given_two_parking_lots_that_are_still_not_full() {
-        // GIVEN
-        int capacity = 3;
-
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-
-        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2));
+    public void should_park_in_the_second_parking_lot_when_park_given_a_parking_boy_with_four_varying_parking_lots() {
+        // given
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(2, 2); // Full
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(5, 2); // Expected, because parking boy parks sequentially
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(20, 10); // Not expected; Can only happen if parked by a smart parking boy
+        ParkingLot parkingLot4 = generateParkingLotWithDummyCars(8, 3); // Not expected; Can only happen if parked by a super smart parking boy
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3, parkingLot4));
         Car car = new Car();
 
-        int parkingLot1ExpectedSize = 2;
-        int parkingLot2ExpectedSize = 1;
+        int expectedParkedCars1 = 2;
+        int expectedParkedCars2 = 3;
+        int expectedParkedCars3 = 10;
+        int expectedParkedCars4 = 3;
 
-        // WHEN
-        parkingBoy.park(car);
+        // when
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
-        // THEN
-        assertEquals(parkingLot1ExpectedSize, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
+        // then
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars1, parkingLot1.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars2, parkingLot2.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars3, parkingLot3.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars4, parkingLot4.getNumberOfParkedCars());
     }
 
     @Test
