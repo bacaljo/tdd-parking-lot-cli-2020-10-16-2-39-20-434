@@ -4,7 +4,6 @@ import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.InvalidParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
-import com.oocl.cultivation.parkingboy.ParkingLotServiceManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -349,6 +348,31 @@ class ParkingBoyTest {
         assertEquals(expectedParkedCars2, parkingLot2.getNumberOfParkedCars());
         assertEquals(expectedParkedCars3, parkingLot3.getNumberOfParkedCars());
         assertEquals(expectedParkedCars4, parkingLot4.getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_park_car_in_second_parking_lot_when_park_given_a_smart_parking_boy_and_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
+        // GIVEN
+        int capacity = 2;
+
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
+
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
+        Car car = new Car();
+
+        int parkingLot1ExpectedSize = 2;
+        int parkingLot2ExpectedSize = 2;
+        int parkingLot3ExpectedSize = 1;
+
+        // WHEN
+        smartParkingBoy.park(car);
+
+        // THEN
+        assertEquals(parkingLot1ExpectedSize, parkingLot1.getNumberOfParkedCars());
+        assertEquals(parkingLot2ExpectedSize, parkingLot2.getNumberOfParkedCars());
+        assertEquals(parkingLot3ExpectedSize, parkingLot3.getNumberOfParkedCars());
     }
 
     @Test
