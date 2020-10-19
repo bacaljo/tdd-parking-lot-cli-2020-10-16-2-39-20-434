@@ -3,10 +3,12 @@ package com.oocl.cultivation.factory;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingBoyType;
 import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.exception.UnsupportedParkingBoyTypeException;
 import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
 import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 
@@ -14,7 +16,9 @@ import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SMART_PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SUPER_SMART_PARKING_BOY;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParkingBoyFactoryTest {
@@ -70,5 +74,21 @@ class ParkingBoyFactoryTest {
         // then
         assertTrue(parkingBoy.getParkingStrategy() instanceof LargestAvailableRateParkingStrategy);
         assertEquals(expectedParkingLotCount, parkingBoy.getParkingLotList().size());
+    }
+
+    @Test
+    public void should_throw_an_unsupported_parking_boy_type_exception_when_get_parking_boy_given_a_null_parking_boy_type() {
+        // given
+        ParkingBoyFactory parkingBoyFactory = new ParkingBoyFactory();
+        List<ParkingLot> parkingLotList = emptyList();
+        ParkingBoyType parkingBoyType = null;
+
+        // when
+        Executable executable = () -> {
+            parkingBoyFactory.getParkingBoy(parkingBoyType, parkingLotList);
+        };
+
+        // then
+        assertThrows(UnsupportedParkingBoyTypeException.class, executable);
     }
 }
