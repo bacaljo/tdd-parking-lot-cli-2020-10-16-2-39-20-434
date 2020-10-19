@@ -135,22 +135,6 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
-    public void should_return_car_when_delegate_fetch_given_a_managed_parking_boy_and_an_associated_ticket() {
-        // given
-        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
-        Car car = new Car();
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
-        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
-
-        // when
-        Car fetchedCar = parkingLotServiceManager.delegateFetch(parkingTicket);
-
-        // then
-        assertSame(fetchedCar, car);
-    }
-
-    @Test
     public void should_park_in_second_parking_given_delegate_park_when_parking_lot_of_first_parking_boy_is_already_full() {
         // given
         ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(
@@ -204,5 +188,21 @@ class ParkingLotServiceManagerTest {
         assertEquals(expectedParkedCars1, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars2, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars3, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_return_car_when_delegate_fetch_given_a_managed_parking_boy_and_an_associated_ticket() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+
+        // when
+        Car fetchedCar = parkingLotServiceManager.delegateFetch(parkingTicket);
+
+        // then
+        assertSame(fetchedCar, car);
     }
 }
