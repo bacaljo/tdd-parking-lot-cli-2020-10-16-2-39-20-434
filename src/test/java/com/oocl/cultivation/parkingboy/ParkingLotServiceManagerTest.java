@@ -191,13 +191,17 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
-    public void should_return_car_when_delegate_fetch_given_a_managed_parking_boy_and_an_associated_ticket() {
+    public void should_return_car_when_delegate_fetch_given_multiple_managed_parking_boys_and_an_associated_ticket() {
         // given
-        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot(1)));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+
         Car car = new Car();
-        ParkingTicket parkingTicket = parkingBoy.park(car);
-        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
-        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy, smartParkingBoy, superSmartParkingBoy));
 
         // when
         Car fetchedCar = parkingLotServiceManager.delegateFetch(parkingTicket);
