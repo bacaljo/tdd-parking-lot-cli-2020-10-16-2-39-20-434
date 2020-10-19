@@ -1,9 +1,12 @@
 package com.oocl.cultivation;
 
+import com.oocl.cultivation.factory.ParkingBoyFactory;
 import com.oocl.cultivation.strategy.ParkingStrategy;
 import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
 import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
+
+import java.util.List;
 
 public class TestHelper {
     public static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";
@@ -28,5 +31,10 @@ public class TestHelper {
         }
 
         return parkingLot;
+    }
+
+    public static ParkingBoy generateParkingBoy(ParkingBoyType parkingBoyType, List<ParkingLot> parkingLotList) {
+        return new ParkingBoyFactory()
+                .getParkingBoy(parkingBoyType, parkingLotList);
     }
 }

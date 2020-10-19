@@ -7,16 +7,17 @@ import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
+import static com.oocl.cultivation.ParkingBoyType.SMART_PARKING_BOY;
+import static com.oocl.cultivation.ParkingBoyType.SUPER_SMART_PARKING_BOY;
 import static com.oocl.cultivation.TestHelper.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.INVALID_PARKING_EXCEPTION_MESSAGE;
-import static com.oocl.cultivation.TestHelper.LARGEST_AVAILABLE_RATE_PARKING_STRATEGY;
 import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
-import static com.oocl.cultivation.TestHelper.MOST_EMPTY_PARKING_STRATEGY;
 import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
-import static com.oocl.cultivation.TestHelper.SEQUENTIAL_PARKING_STRATEGY;
 import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestHelper.UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.generateParkingBoy;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,7 @@ class ParkingBoyTest {
     public void should_return_a_parking_ticket_when_park_given_a_car() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
 
         // WHEN
         ParkingTicket parkingTicket = parkingBoy.park(car);
@@ -43,7 +44,7 @@ class ParkingBoyTest {
     public void should_return_the_correct_car_when_fetch_given_the_correct_ticket() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
         ParkingTicket parkingTicket = parkingBoy.park(car);
 
         // WHEN
@@ -59,7 +60,7 @@ class ParkingBoyTest {
         Car car1 = new Car();
         Car car2 = new Car();
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
 
         ParkingTicket parkingTicket1 = parkingBoy.park(car1);
         ParkingTicket parkingTicket2 = parkingBoy.park(car2);
@@ -77,7 +78,7 @@ class ParkingBoyTest {
     public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_unassociated_ticket() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
         parkingBoy.park(car);
 
         ParkingTicket fakeParkingTicket = new ParkingTicket();
@@ -96,7 +97,7 @@ class ParkingBoyTest {
     public void should_throw_missing_parking_ticket_exception_when_fetch_given_null_ticket() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
         parkingBoy.park(car);
 
         ParkingTicket nullParkingTicket = null;
@@ -115,7 +116,7 @@ class ParkingBoyTest {
     public void should_throw_unrecognized_parking_ticket_exception_with_message_when_fetch_given_an_already_used_ticket() {
         // GIVEN
         Car car = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(parkingTicket);
 
@@ -135,7 +136,7 @@ class ParkingBoyTest {
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
         parkingLot.park(car);
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot(), parkingLot));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot(), parkingLot));
 
         // WHEN
         Executable executable = () -> {
@@ -151,7 +152,7 @@ class ParkingBoyTest {
     public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot(capacity)));
         parkingBoy.park(new Car());
         Car anotherCar = new Car();
 
@@ -173,7 +174,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -196,7 +197,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = new ParkingLot(capacity);
         ParkingLot parkingLot3 = new ParkingLot(capacity);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 1;
@@ -224,7 +225,7 @@ class ParkingBoyTest {
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot3.park(car);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
 
         // WHEN
         Car fetchedCar = parkingBoy.fetch(parkingTicket);
@@ -241,7 +242,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = new ParkingLot(capacity);
         ParkingLot parkingLot2 = new ParkingLot(capacity);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2));
         ParkingTicket nullParkingTicket = null;
 
         // WHEN
@@ -262,7 +263,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2));
         ParkingTicket fakeParkingTicket = new ParkingTicket();
 
         // WHEN
@@ -283,7 +284,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
         parkingBoy.fetch(parkingTicket);
@@ -307,7 +308,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN
@@ -324,7 +325,7 @@ class ParkingBoyTest {
     public void should_throw_a_full_parking_exception_when_park_given_a_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot(capacity)));
         smartParkingBoy.park(new Car());
         Car anotherCar = new Car();
 
@@ -345,7 +346,7 @@ class ParkingBoyTest {
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -366,7 +367,7 @@ class ParkingBoyTest {
 
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -389,7 +390,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 2;
@@ -413,7 +414,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy smartParkingBoy = new ParkingBoy(MOST_EMPTY_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN
@@ -435,7 +436,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
 
-        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         // WHEN
@@ -452,7 +453,7 @@ class ParkingBoyTest {
     public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_a_parking_lot_with_capacity_1_and_a_parked_car() {
         // GIVEN
         int capacity = 1;
-        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(new ParkingLot(capacity)));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(new ParkingLot(capacity)));
         superSmartParkingBoy.park(new Car());
         Car anotherCar = new Car();
 
@@ -472,7 +473,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(15, 3);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(20, 5);
 
-        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 4;
@@ -492,7 +493,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(20, 5);
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
 
-        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 5;
@@ -513,7 +514,7 @@ class ParkingBoyTest {
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(15, 3);
         ParkingLot parkingLot3 = generateParkingLotWithDummyCars(25, 5);
 
-        ParkingBoy superSmartParkingBoy = new ParkingBoy(LARGEST_AVAILABLE_RATE_PARKING_STRATEGY, asList(parkingLot1, parkingLot2, parkingLot3));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
         Car car = new Car();
 
         int parkingLot1ExpectedSize = 5;
