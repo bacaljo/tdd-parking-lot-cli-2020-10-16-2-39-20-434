@@ -9,6 +9,7 @@ public final class TestHelper {
     public static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
     public static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
     public static final String INVALID_PARKING_EXCEPTION_MESSAGE = "Car is already parked.";
+    public static final String MISSING_CAR_EXCEPTION_MESSAGE = "There is no car to park.";
     public static final int FIRST_ELEMENT = 0;
     public static final int SECOND_ELEMENT = 1;
     public static final int THIRD_ELEMENT = 2;

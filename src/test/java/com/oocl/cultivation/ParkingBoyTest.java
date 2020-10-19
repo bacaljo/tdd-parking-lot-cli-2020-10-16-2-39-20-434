@@ -2,6 +2,7 @@ package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.InvalidParkingException;
+import com.oocl.cultivation.exception.MissingCarException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import static com.oocl.cultivation.ParkingBoyType.SUPER_SMART_PARKING_BOY;
 import static com.oocl.cultivation.TestHelper.FIRST_ELEMENT;
 import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.INVALID_PARKING_EXCEPTION_MESSAGE;
+import static com.oocl.cultivation.TestHelper.MISSING_CAR_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.MISSING_PARKING_TICKET_EXCEPTION_MESSAGE;
 import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
 import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
@@ -146,6 +148,23 @@ class ParkingBoyTest {
         // THEN
         Exception exception = assertThrows(InvalidParkingException.class, executable);
         assertEquals(INVALID_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_a_missing_car_exception_with_message_when_park_given_a_null_car() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(parkingLot));
+        Car car = null;
+
+        // WHEN
+        Executable executable = () -> {
+            parkingBoy.park(car);
+        };
+
+        // THEN
+        Exception exception = assertThrows(MissingCarException.class, executable);
+        assertEquals(MISSING_CAR_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
