@@ -130,7 +130,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_throw_invalid_parking_exception_with_message_when_fetch_given_an_already_parked_car() {
+    public void should_throw_invalid_parking_exception_with_message_when_park_given_an_already_parked_car() {
         // GIVEN
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
