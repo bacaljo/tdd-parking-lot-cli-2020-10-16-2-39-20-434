@@ -1,6 +1,7 @@
 package com.oocl.cultivation;
 
 import com.oocl.cultivation.exception.InvalidParkingException;
+import com.oocl.cultivation.exception.MissingCarException;
 import com.oocl.cultivation.strategy.FetchingStrategy;
 import com.oocl.cultivation.strategy.ParkingStrategy;
 import com.oocl.cultivation.strategy.fetching.DefaultFetchingStrategy;
@@ -19,9 +20,16 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
+        validateForMissingCar(car);
         validateForAlreadyParkedCar(car);
 
         return parkingStrategy.park(car, parkingLotList);
+    }
+
+    private void validateForMissingCar(Car car) {
+        if (car == null) {
+            throw new MissingCarException();
+        }
     }
 
     private void validateForAlreadyParkedCar(Car car) {
