@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SMART_PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SUPER_SMART_PARKING_BOY;
+import static com.oocl.cultivation.TestHelper.FIRST_ELEMENT;
+import static com.oocl.cultivation.TestHelper.SECOND_ELEMENT;
+import static com.oocl.cultivation.TestHelper.THIRD_ELEMENT;
 import static com.oocl.cultivation.TestHelper.generateParkingBoy;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
 import static java.util.Arrays.asList;
@@ -146,5 +149,31 @@ class ParkingLotServiceManagerTest {
 
         // then
         assertSame(fetchedCar, car);
+    }
+
+    @Test
+    public void should_delegate_parking_task_to_second_parking_boy_given_delegate_park_when_parking_lot_of_first_parking_boy_is_already_full() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot()));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(new ParkingLot()));
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy, smartParkingBoy, superSmartParkingBoy));
+
+        Car car = new Car();
+
+        int expectedParkedCars1 = 1;
+        int expectedParkedCars2 = 1;
+        int expectedParkedCars3 = 0;
+
+        // when
+        ParkingTicket parkingTicket = parkingLotServiceManager.delegatePark(car);
+
+        // then
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars1, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(expectedParkedCars2, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+        assertEquals(expectedParkedCars3, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
     }
 }
