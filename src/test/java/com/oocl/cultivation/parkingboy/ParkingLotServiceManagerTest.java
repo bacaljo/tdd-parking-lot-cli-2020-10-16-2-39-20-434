@@ -4,6 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -191,6 +192,25 @@ class ParkingLotServiceManagerTest {
         assertEquals(expectedParkedCars1, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars2, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars3, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_throw_missing_parking_ticket_exception_when_delegate_fetch_given_a_null_ticket() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+
+        ParkingTicket parkingTicket = null;
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.delegateFetch(parkingTicket);
+        };
+
+        // then
+        assertThrows(MissingParkingTicketException.class, executable);
     }
 
     @Test
