@@ -214,7 +214,7 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
-    public void should_throw_an_error_when_delegate_fetch_given_multiple_managed_parking_boys_and_an_unassociated_ticket() {
+    public void should_throw_an_unrecognized_parking_ticket_exception_when_delegate_fetch_given_multiple_managed_parking_boys_and_an_unassociated_ticket() {
         // given
         ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
         ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot()));
