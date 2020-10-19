@@ -36,7 +36,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
             }
         }
 
-        return null;
+        throw new FullParkingException();
     }
 
     public Car delegateFetch(ParkingTicket parkingTicket) {
