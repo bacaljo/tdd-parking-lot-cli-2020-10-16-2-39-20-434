@@ -4,6 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.ArrayList;
@@ -26,10 +27,15 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public ParkingTicket delegatePark(Car car) {
-        return managementList.stream()
-                .findFirst()
-                .get()
-                .park(car);
+        for (ParkingBoy parkingBoy : managementList) {
+            try {
+                return parkingBoy.park(car);
+            } catch (FullParkingException e) {
+
+            }
+        }
+
+        return null;
     }
 
     public Car delegateFetch(ParkingTicket parkingTicket) {
