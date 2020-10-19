@@ -76,6 +76,34 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
+    public void should_park_in_third_parking_lot_and_return_ticket_when_delegate_park_given_a_managed_smart_parking_boy_with_four_varying_parking_lots() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(2, 2); // Full
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(5, 2); // Not expected; Can only happen if parked by a parking boy
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(20, 10); // Expected, because smart parking boy parks in the lot with the most available positions (10)
+        ParkingLot parkingLot4 = generateParkingLotWithDummyCars(8, 3); // Not expected; Can only happen if parked by a super smart parking boy
+        ParkingBoy parkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3, parkingLot4));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+        Car car = new Car();
+
+        int expectedParkedCars1 = 2;
+        int expectedParkedCars2 = 2;
+        int expectedParkedCars3 = 11;
+        int expectedParkedCars4 = 3;
+
+        // when
+        ParkingTicket parkingTicket = parkingLotServiceManager.delegatePark(car);
+
+        // then
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars1, parkingLot1.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars2, parkingLot2.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars3, parkingLot3.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars4, parkingLot4.getNumberOfParkedCars());
+    }
+
+    @Test
     public void should_return_car_when_delegate_fetch_given_a_managed_parking_boy_and_an_associated_ticket() {
         // given
         ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
