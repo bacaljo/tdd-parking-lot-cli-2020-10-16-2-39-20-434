@@ -13,11 +13,10 @@ import static java.util.function.Predicate.not;
 public class SequentialParkingStrategy implements ParkingStrategy {
     @Override
     public ParkingTicket park(Car car, List<ParkingLot> parkingLotList) {
-        ParkingLot parkingLot = parkingLotList.stream()
+        return parkingLotList.stream()
                 .filter(not(ParkingLot::isFull))
                 .findFirst()
-                .orElseThrow(FullParkingException::new);
-
-        return parkingLot.park(car);
+                .orElseThrow(FullParkingException::new)
+                .park(car);
     }
 }

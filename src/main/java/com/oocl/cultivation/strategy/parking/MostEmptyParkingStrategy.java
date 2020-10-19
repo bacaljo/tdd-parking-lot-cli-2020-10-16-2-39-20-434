@@ -8,16 +8,14 @@ import com.oocl.cultivation.strategy.ParkingStrategy;
 
 import java.util.List;
 
+import static java.util.Comparator.comparingDouble;
+
 public class MostEmptyParkingStrategy implements ParkingStrategy {
     @Override
     public ParkingTicket park(Car car, List<ParkingLot> parkingLotList) {
-        ParkingLot parkingLot = parkingLotList.stream()
-                .reduce((mostEmptyParkingLot, p) ->
-                        (p.countEmptyPositions() > mostEmptyParkingLot.countEmptyPositions())
-                                ? p
-                                : mostEmptyParkingLot)
-                .orElseThrow(FullParkingException::new);
-
-        return parkingLot.park(car);
+        return parkingLotList.stream()
+                .max(comparingDouble(ParkingLot::getAvailablePositionRate))
+                .orElseThrow(FullParkingException::new)
+                .park(car);
     }
 }
