@@ -4,7 +4,8 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import org.junit.jupiter.api.Test;
 
-import static com.oocl.cultivation.TestHelper.SEQUENTIAL_PARKING_STRATEGY;
+import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
+import static com.oocl.cultivation.TestHelper.generateParkingBoy;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,8 +29,8 @@ class ParkingLotServiceManagerTest {
     public void should_get_2_parking_boys_when_enlist_parking_boys_given_2_parking_boys() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
-        ParkingBoy parkingBoy1 = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
-        ParkingBoy parkingBoy2 = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy1 = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+        ParkingBoy parkingBoy2 = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
 
         int parkingBoysCount = 2;
 
