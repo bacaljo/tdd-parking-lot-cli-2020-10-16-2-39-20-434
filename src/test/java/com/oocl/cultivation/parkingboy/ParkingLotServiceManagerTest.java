@@ -4,6 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.MissingCarException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
@@ -166,6 +167,25 @@ class ParkingLotServiceManagerTest {
         assertEquals(expectedParkedCars2, parkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
 
         assertEquals(expectedParkedCars3, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_throw_missing_car_exception_when_delegate_park_given_a_null_car() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+
+        Car car = null;
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.delegatePark(car);
+        };
+
+        // then
+        assertThrows(MissingCarException.class, executable);
     }
 
     @Test
