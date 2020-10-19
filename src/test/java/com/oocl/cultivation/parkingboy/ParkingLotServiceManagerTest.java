@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SMART_PARKING_BOY;
+import static com.oocl.cultivation.ParkingBoyType.SUPER_SMART_PARKING_BOY;
 import static com.oocl.cultivation.TestHelper.generateParkingBoy;
 import static com.oocl.cultivation.TestHelper.generateParkingLotWithDummyCars;
 import static java.util.Arrays.asList;
@@ -91,6 +92,34 @@ class ParkingLotServiceManagerTest {
         int expectedParkedCars2 = 2;
         int expectedParkedCars3 = 11;
         int expectedParkedCars4 = 3;
+
+        // when
+        ParkingTicket parkingTicket = parkingLotServiceManager.delegatePark(car);
+
+        // then
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars1, parkingLot1.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars2, parkingLot2.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars3, parkingLot3.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars4, parkingLot4.getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_park_in_fourth_parking_lot_and_return_ticket_when_delegate_park_given_a_managed_super_smart_parking_boy_with_four_varying_parking_lots() {
+        // given
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(2, 2); // Full
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(5, 2); // Not expected; Can only happen if parked by a parking boy
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(20, 10); // Not expected; Can only happen if parked by a smart parking boy
+        ParkingLot parkingLot4 = generateParkingLotWithDummyCars(8, 3); // Expected, because super smart parking boy parks in the lot with the largest available rate (.63)
+        ParkingBoy parkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3, parkingLot4));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+        Car car = new Car();
+
+        int expectedParkedCars1 = 2;
+        int expectedParkedCars2 = 2;
+        int expectedParkedCars3 = 10;
+        int expectedParkedCars4 = 4;
 
         // when
         ParkingTicket parkingTicket = parkingLotServiceManager.delegatePark(car);
