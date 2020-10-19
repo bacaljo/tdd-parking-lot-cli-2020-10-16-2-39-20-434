@@ -26,6 +26,9 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public ParkingTicket delegatePark(Car car) {
-        return null;
+        return managementList.stream()
+                .findFirst()
+                .get()
+                .park(car);
     }
 }
