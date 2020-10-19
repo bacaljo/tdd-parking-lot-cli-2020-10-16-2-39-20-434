@@ -48,6 +48,6 @@ public class ParkingLotServiceManager extends ParkingBoy {
             }
         }
 
-        return null;
+        throw new UnrecognizedParkingTicketException();
     }
 }
