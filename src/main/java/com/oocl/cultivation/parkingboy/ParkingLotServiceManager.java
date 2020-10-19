@@ -1,7 +1,9 @@
 package com.oocl.cultivation.parkingboy;
 
+import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.ArrayList;
@@ -21,5 +23,9 @@ public class ParkingLotServiceManager extends ParkingBoy {
 
     public List<ParkingBoy> getManagementList() {
         return managementList;
+    }
+
+    public ParkingTicket delegatePark(Car car) {
+        return null;
     }
 }
