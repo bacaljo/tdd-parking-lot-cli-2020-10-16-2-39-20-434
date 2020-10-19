@@ -326,7 +326,7 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_in_the_second_parking_lot_when_park_given_a_smart_parking_boy_with_four_varying_parking_lots() {
+    public void should_park_in_the_third_parking_lot_when_park_given_a_smart_parking_boy_with_four_varying_parking_lots() {
         // given
         ParkingLot parkingLot1 = generateParkingLotWithDummyCars(2, 2); // Full
         ParkingLot parkingLot2 = generateParkingLotWithDummyCars(5, 2); // Not expected; Can only happen if parked by a parking boy
