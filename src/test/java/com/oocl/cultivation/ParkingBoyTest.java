@@ -4,6 +4,7 @@ import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.InvalidParkingException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
+import com.oocl.cultivation.parkingboy.ParkingLotServiceManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -322,6 +323,32 @@ class ParkingBoyTest {
         // THEN
         Exception exception = assertThrows(FullParkingException.class, executable);
         assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    public void should_park_in_the_second_parking_lot_when_park_given_a_smart_parking_boy_with_four_varying_parking_lots() {
+        // given
+        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(2, 2); // Full
+        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(5, 2); // Not expected; Can only happen if parked by a parking boy
+        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(20, 10); // Expected, because smart parking boy parks in the lot with the most available positions (10)
+        ParkingLot parkingLot4 = generateParkingLotWithDummyCars(8, 3); // Not expected; Can only happen if parked by a super smart parking boy
+        ParkingBoy parkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3, parkingLot4));
+        Car car = new Car();
+
+        int expectedParkedCars1 = 2;
+        int expectedParkedCars2 = 2;
+        int expectedParkedCars3 = 11;
+        int expectedParkedCars4 = 3;
+
+        // when
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        // then
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars1, parkingLot1.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars2, parkingLot2.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars3, parkingLot3.getNumberOfParkedCars());
+        assertEquals(expectedParkedCars4, parkingLot4.getNumberOfParkedCars());
     }
 
     @Test
