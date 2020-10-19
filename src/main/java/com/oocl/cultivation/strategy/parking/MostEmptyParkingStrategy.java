@@ -14,7 +14,7 @@ public class MostEmptyParkingStrategy implements ParkingStrategy {
     @Override
     public ParkingTicket park(Car car, List<ParkingLot> parkingLotList) {
         return parkingLotList.stream()
-                .max(comparingDouble(ParkingLot::getAvailablePositionRate))
+                .max(comparingDouble(ParkingLot::countEmptyPositions))
                 .orElseThrow(FullParkingException::new)
                 .park(car);
     }
