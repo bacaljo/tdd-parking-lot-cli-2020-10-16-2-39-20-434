@@ -6,7 +6,7 @@ import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.List;
 
-public class TestHelper {
+public final class TestHelper {
     public static final String UNRECOGNIZED_PARKING_TICKET_EXCEPTION_MESSAGE = "Unrecognized parking ticket.";
     public static final String MISSING_PARKING_TICKET_EXCEPTION_MESSAGE = "Please provide your parking ticket.";
     public static final String FULL_PARKING_EXCEPTION_MESSAGE = "Not enough position.";
