@@ -18,7 +18,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
         managementList = new ArrayList<>();
     }
 
-    public void manageParkingBoys(List<ParkingBoy> parkingBoyList) {
+    public void enlistParkingBoys(List<ParkingBoy> parkingBoyList) {
         managementList.addAll(parkingBoyList);
     }
 

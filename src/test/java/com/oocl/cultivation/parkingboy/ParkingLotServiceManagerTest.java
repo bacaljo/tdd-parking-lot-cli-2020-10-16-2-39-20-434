@@ -33,7 +33,7 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
-    public void should_get_2_parking_boys_when_manage_parking_boys_given_2_parking_boys() {
+    public void should_get_2_parking_boys_when_enlist_parking_boys_given_2_parking_boys() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy1 = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
@@ -42,7 +42,7 @@ class ParkingLotServiceManagerTest {
         int parkingBoysCount = 2;
 
         // when
-        parkingLotServiceManager.manageParkingBoys(asList(parkingBoy1, parkingBoy2));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy1, parkingBoy2));
 
         // then
         assertEquals(parkingBoysCount, parkingLotServiceManager.getManagementList().size());
@@ -53,7 +53,7 @@ class ParkingLotServiceManagerTest {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
         ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
-        parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
         Car car = new Car();
 
         // when
@@ -87,7 +87,7 @@ class ParkingLotServiceManagerTest {
         ParkingBoy parkingBoy = new ParkingBoy(SEQUENTIAL_PARKING_STRATEGY, asList(new ParkingLot()));
         Car car = new Car();
         ParkingTicket parkingTicket = parkingBoy.park(car);
-        parkingLotServiceManager.manageParkingBoys(asList(parkingBoy));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
 
         // when
         Car fetchedCar = parkingLotServiceManager.orderParkingBoyToFetch(parkingBoy, parkingTicket);
