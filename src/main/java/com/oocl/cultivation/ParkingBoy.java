@@ -40,6 +40,6 @@ public class ParkingBoy {
     }
 
     public ParkingStrategy getParkingStrategy() {
-        return null;
+        return parkingStrategy;
     }
 }
