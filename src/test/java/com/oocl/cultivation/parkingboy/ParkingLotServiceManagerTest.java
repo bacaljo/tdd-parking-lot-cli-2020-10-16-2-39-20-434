@@ -57,6 +57,36 @@ class ParkingLotServiceManagerTest {
     }
 
     @Test
+    public void should_return_a_parking_ticket_when_park_given_a_car() {
+        // GIVEN
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        Car car = new Car();
+
+        int expectedParkedCars = 1;
+
+        // WHEN
+        ParkingTicket parkingTicket = parkingLotServiceManager.park(car);
+
+        // THEN
+        assertNotNull(parkingTicket);
+        assertEquals(expectedParkedCars, parkingLotServiceManager.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_return_the_correct_car_when_fetch_given_the_correct_ticket() {
+        // GIVEN
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingLotServiceManager.park(car);
+
+        // WHEN
+        Car fetchedCar = parkingLotServiceManager.fetch(parkingTicket);
+
+        // THEN
+        assertSame(car, fetchedCar);
+    }
+
+    @Test
     public void should_park_in_second_parking_lot_and_return_ticket_when_delegate_park_given_a_managed_parking_boy_with_four_varying_parking_lots() {
         // given
         ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
