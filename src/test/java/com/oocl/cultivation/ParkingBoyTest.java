@@ -325,52 +325,6 @@ class ParkingBoyTest {
     }
 
     @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_where_second_has_more_empty_positions() {
-        // GIVEN
-        int capacity = 3;
-
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2));
-        Car car = new Car();
-
-        int parkingLot1ExpectedSize = 2;
-        int parkingLot2ExpectedSize = 2;
-
-        // WHEN
-        smartParkingBoy.park(car);
-
-        // THEN
-        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
-    }
-
-    @Test
-    public void should_park_car_in_second_parking_lot_when_park_given_a_smart_parking_boy_and_three_parking_lots_where_first_is_full_and_second_and_third_have_the_same_empty_positions() {
-        // GIVEN
-        int capacity = 2;
-
-        ParkingLot parkingLot1 = generateParkingLotWithDummyCars(capacity, 2);
-        ParkingLot parkingLot2 = generateParkingLotWithDummyCars(capacity, 1);
-        ParkingLot parkingLot3 = generateParkingLotWithDummyCars(capacity, 1);
-
-        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(parkingLot1, parkingLot2, parkingLot3));
-        Car car = new Car();
-
-        int parkingLot1ExpectedSize = 2;
-        int parkingLot2ExpectedSize = 2;
-        int parkingLot3ExpectedSize = 1;
-
-        // WHEN
-        smartParkingBoy.park(car);
-
-        // THEN
-        assertEquals(parkingLot1ExpectedSize, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot2ExpectedSize, smartParkingBoy.getParkingLotList().get(SECOND_ELEMENT).getNumberOfParkedCars());
-        assertEquals(parkingLot3ExpectedSize, smartParkingBoy.getParkingLotList().get(THIRD_ELEMENT).getNumberOfParkedCars());
-    }
-
-    @Test
     public void should_throw_a_full_parking_exception_when_park_given_a_super_smart_parking_boy_and_three_full_parking_lots() {
         // GIVEN
         int capacity = 1;
