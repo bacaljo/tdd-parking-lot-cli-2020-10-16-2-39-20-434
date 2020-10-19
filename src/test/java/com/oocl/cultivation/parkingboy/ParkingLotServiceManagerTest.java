@@ -4,6 +4,7 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingCarException;
 import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
@@ -212,6 +213,27 @@ class ParkingLotServiceManagerTest {
         assertEquals(expectedParkedCars1, parkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars2, smartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
         assertEquals(expectedParkedCars3, superSmartParkingBoy.getParkingLotList().get(FIRST_ELEMENT).getNumberOfParkedCars());
+    }
+
+    @Test
+    public void should_throw_full_parking_exception_when_delegate_park_given_all_parking_lots_are_full() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(generateParkingLotWithDummyCars(1, 1)));
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy, smartParkingBoy, superSmartParkingBoy));
+
+        Car car = new Car();
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.delegatePark(car);
+        };
+
+        // then
+        assertThrows(FullParkingException.class, executable);
     }
 
     @Test
