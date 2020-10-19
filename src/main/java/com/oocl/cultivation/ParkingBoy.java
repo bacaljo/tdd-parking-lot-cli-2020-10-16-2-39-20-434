@@ -38,4 +38,8 @@ public class ParkingBoy {
     public List<ParkingLot> getParkingLotList() {
         return parkingLotList;
     }
+
+    public ParkingStrategy getParkingStrategy() {
+        return null;
+    }
 }
