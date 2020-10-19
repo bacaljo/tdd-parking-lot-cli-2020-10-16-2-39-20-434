@@ -29,7 +29,7 @@ public class ParkingLot {
     }
 
     private void validateForFullParking() {
-        if (parkingTicketCarMap.size() == capacity) {
+        if (isFull()) {
             throw new FullParkingException();
         }
     }
