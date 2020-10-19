@@ -3,6 +3,7 @@ package com.oocl.cultivation.factory;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingBoyType;
 import com.oocl.cultivation.ParkingLot;
+import com.oocl.cultivation.exception.UnsupportedParkingBoyTypeException;
 import com.oocl.cultivation.strategy.parking.LargestAvailableRateParkingStrategy;
 import com.oocl.cultivation.strategy.parking.MostEmptyParkingStrategy;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
@@ -25,6 +26,7 @@ public class ParkingBoyFactory {
         } else if (parkingBoyType == SUPER_SMART_PARKING_BOY) {
             return new ParkingBoy(new LargestAvailableRateParkingStrategy(), parkingLotList);
         }
-        return null;
+
+        throw new UnsupportedParkingBoyTypeException();
     }
 }
