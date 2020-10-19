@@ -11,6 +11,7 @@ import static com.oocl.cultivation.TestHelper.generateParkingBoy;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class ParkingLotServiceManagerTest {
 
@@ -57,5 +58,21 @@ class ParkingLotServiceManagerTest {
 
         // then
         assertNotNull(parkingTicket);
+    }
+
+    @Test
+    public void should_return_car_when_delegate_fetch_given_a_managed_parking_boy_and_an_associated_ticket() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(asList(new ParkingLot()));
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy));
+
+        // when
+        Car fetchedCar = parkingLotServiceManager.delegateFetch(parkingTicket);
+
+        // then
+        assertSame(fetchedCar, car);
     }
 }
