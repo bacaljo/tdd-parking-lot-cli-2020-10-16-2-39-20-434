@@ -4,7 +4,9 @@ import com.oocl.cultivation.Car;
 import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static com.oocl.cultivation.ParkingBoyType.PARKING_BOY;
 import static com.oocl.cultivation.ParkingBoyType.SMART_PARKING_BOY;
@@ -17,6 +19,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotServiceManagerTest {
 
@@ -208,5 +211,26 @@ class ParkingLotServiceManagerTest {
 
         // then
         assertSame(fetchedCar, car);
+    }
+
+    @Test
+    public void should_throw_an_error_when_delegate_fetch_given_multiple_managed_parking_boys_and_an_unassociated_ticket() {
+        // given
+        ParkingBoy parkingBoy = generateParkingBoy(PARKING_BOY, asList(new ParkingLot()));
+        ParkingBoy smartParkingBoy = generateParkingBoy(SMART_PARKING_BOY, asList(new ParkingLot()));
+        ParkingBoy superSmartParkingBoy = generateParkingBoy(SUPER_SMART_PARKING_BOY, asList(new ParkingLot()));
+
+        ParkingLotServiceManager parkingLotServiceManager = new ParkingLotServiceManager(null);
+        parkingLotServiceManager.enlistParkingBoys(asList(parkingBoy, smartParkingBoy, superSmartParkingBoy));
+
+        ParkingTicket parkingTicket = new ParkingTicket();
+
+        // when
+        Executable executable = () -> {
+            parkingLotServiceManager.delegateFetch(parkingTicket);
+        };
+
+        // then
+        assertThrows(UnrecognizedParkingTicketException.class, executable);
     }
 }
