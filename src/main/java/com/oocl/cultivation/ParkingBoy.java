@@ -8,6 +8,8 @@ import com.oocl.cultivation.strategy.fetching.DefaultFetchingStrategy;
 
 import java.util.List;
 
+import static com.oocl.cultivation.ValidationHelper.validate;
+
 public class ParkingBoy {
     private final List<ParkingLot> parkingLotList;
     private final ParkingStrategy parkingStrategy;
@@ -20,23 +22,11 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) {
-        validateForMissingCar(car);
-        validateForAlreadyParkedCar(car);
+        validate(car != null, new MissingCarException());
+        boolean isNotParked = parkingLotList.stream().noneMatch(parkingLot -> parkingLot.containsParkedCar(car));
+        validate(isNotParked, new InvalidParkingException());
 
         return parkingStrategy.park(car, parkingLotList);
-    }
-
-    private void validateForMissingCar(Car car) {
-        if (car == null) {
-            throw new MissingCarException();
-        }
-    }
-
-    private void validateForAlreadyParkedCar(Car car) {
-        boolean isAlreadyParked = parkingLotList.stream().anyMatch(parkingLot -> parkingLot.containsParkedCar(car));
-        if (isAlreadyParked) {
-            throw new InvalidParkingException();
-        }
     }
 
     public Car fetch(ParkingTicket parkingTicket) {

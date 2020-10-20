@@ -13,6 +13,7 @@ import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.oocl.cultivation.ValidationHelper.validate;
 import static java.util.function.Predicate.not;
 
 public class ParkingLotServiceManager extends ParkingBoy {
@@ -32,9 +33,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public ParkingTicket delegatePark(Car car) {
-        if (car == null) {
-            throw new MissingCarException();
-        }
+        validate(car != null, new MissingCarException());
 
         return managementList.stream()
                 .filter(parkingBoy -> parkingBoy.getParkingLotList()
@@ -46,9 +45,7 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public Car delegateFetch(ParkingTicket parkingTicket) {
-        if (parkingTicket == null) {
-            throw new MissingParkingTicketException();
-        }
+        validate(parkingTicket != null, new MissingParkingTicketException());
 
         return managementList.stream()
                 .filter(parkingBoy -> parkingBoy.getParkingLotList().stream()
