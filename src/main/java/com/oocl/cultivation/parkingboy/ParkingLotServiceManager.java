@@ -6,6 +6,7 @@ import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.FullParkingException;
 import com.oocl.cultivation.exception.MissingCarException;
+import com.oocl.cultivation.exception.MissingParkingTicketException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
@@ -45,6 +46,10 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public Car delegateFetch(ParkingTicket parkingTicket) {
+        if (parkingTicket == null) {
+            throw new MissingParkingTicketException();
+        }
+
         for (ParkingBoy parkingBoy : managementList) {
             try {
                 return parkingBoy.fetch(parkingTicket);
