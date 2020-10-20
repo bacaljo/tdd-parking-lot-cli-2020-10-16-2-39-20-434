@@ -9,11 +9,13 @@ import com.oocl.cultivation.strategy.ParkingStrategy;
 import java.util.List;
 
 import static java.util.Comparator.comparingDouble;
+import static java.util.function.Predicate.not;
 
 public class MostEmptyParkingStrategy implements ParkingStrategy {
     @Override
     public ParkingTicket park(Car car, List<ParkingLot> parkingLotList) {
         return parkingLotList.stream()
+                .filter(not(ParkingLot::isFull))
                 .max(comparingDouble(ParkingLot::countEmptyPositions))
                 .orElseThrow(FullParkingException::new)
                 .park(car);

@@ -1,7 +1,5 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.FullParkingException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,17 +19,10 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        validateForFullParking();
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
 
         return parkingTicket;
-    }
-
-    private void validateForFullParking() {
-        if (isFull()) {
-            throw new FullParkingException();
-        }
     }
 
     public Car fetch(ParkingTicket parkingTicket) {

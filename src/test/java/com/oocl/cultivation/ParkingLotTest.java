@@ -1,15 +1,11 @@
 package com.oocl.cultivation;
 
-import com.oocl.cultivation.exception.FullParkingException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
-import static com.oocl.cultivation.TestHelper.FULL_PARKING_EXCEPTION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ParkingLotTest {
 
@@ -132,24 +128,6 @@ class ParkingLotTest {
 
         // THEN
         assertNull(fetchedCar);
-    }
-
-    @Test
-    public void should_throw_a_full_parking_exception_when_park_given_a_parking_lot_with_capacity_1_and_a_parked_car() {
-        // GIVEN
-        int capacity = 1;
-        ParkingLot parkingLot = new ParkingLot(capacity);
-        parkingLot.park(new Car());
-        Car anotherCar = new Car();
-
-        // WHEN
-        Executable executable = () -> {
-            parkingLot.park(anotherCar);
-        };
-
-        // THEN
-        Exception exception = assertThrows(FullParkingException.class, executable);
-        assertEquals(FULL_PARKING_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
     @Test
