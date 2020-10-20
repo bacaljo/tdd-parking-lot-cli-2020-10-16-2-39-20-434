@@ -5,11 +5,14 @@ import com.oocl.cultivation.ParkingBoy;
 import com.oocl.cultivation.ParkingLot;
 import com.oocl.cultivation.ParkingTicket;
 import com.oocl.cultivation.exception.FullParkingException;
+import com.oocl.cultivation.exception.MissingCarException;
 import com.oocl.cultivation.exception.UnrecognizedParkingTicketException;
 import com.oocl.cultivation.strategy.parking.SequentialParkingStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.function.Predicate.not;
 
 public class ParkingLotServiceManager extends ParkingBoy {
     private final List<ParkingBoy> managementList;
@@ -28,15 +31,17 @@ public class ParkingLotServiceManager extends ParkingBoy {
     }
 
     public ParkingTicket delegatePark(Car car) {
-        for (ParkingBoy parkingBoy : managementList) {
-            try {
-                return parkingBoy.park(car);
-            } catch (FullParkingException e) {
-
-            }
+        if (car == null) {
+            throw new MissingCarException();
         }
 
-        throw new FullParkingException();
+        return managementList.stream()
+                .filter(parkingBoy -> parkingBoy.getParkingLotList()
+                        .stream()
+                        .anyMatch(not(ParkingLot::isFull)))
+                .findFirst()
+                .orElseThrow(FullParkingException::new)
+                .park(car);
     }
 
     public Car delegateFetch(ParkingTicket parkingTicket) {
