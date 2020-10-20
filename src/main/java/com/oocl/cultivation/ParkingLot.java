@@ -66,6 +66,6 @@ public class ParkingLot {
     }
 
     public boolean containsParkingTicket(ParkingTicket parkingTicket) {
-        return false;
+        return parkingTicketCarMap.containsKey(parkingTicket);
     }
 }
