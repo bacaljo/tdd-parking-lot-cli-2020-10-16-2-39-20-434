@@ -64,4 +64,8 @@ public class ParkingLot {
     public boolean containsParkedCar(Car car) {
         return parkingTicketCarMap.containsValue(car);
     }
+
+    public boolean containsParkingTicket(ParkingTicket parkingTicket) {
+        return false;
+    }
 }

@@ -236,4 +236,19 @@ class ParkingLotTest {
         // THEN
         assertEquals(expectedResult, containsParkedCar);
     }
+
+    @Test
+    public void should_return_true_when_contains_parking_ticket_given_a_parking_ticket() {
+        // GIVEN
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket parkingTicket = parkingLot.park(new Car());
+
+        boolean expectedResult = true;
+
+        // WHEN
+        boolean containsParkingTicket = parkingLot.containsParkingTicket(parkingTicket);
+
+        // THEN
+        assertEquals(expectedResult, containsParkingTicket);
+    }
 }
