@@ -50,14 +50,11 @@ public class ParkingLotServiceManager extends ParkingBoy {
             throw new MissingParkingTicketException();
         }
 
-        for (ParkingBoy parkingBoy : managementList) {
-            try {
-                return parkingBoy.fetch(parkingTicket);
-            } catch (UnrecognizedParkingTicketException e) {
-
-            }
-        }
-
-        throw new UnrecognizedParkingTicketException();
+        return managementList.stream()
+                .filter(parkingBoy -> parkingBoy.getParkingLotList().stream()
+                        .anyMatch(parkingLot -> parkingLot.containsParkingTicket(parkingTicket)))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new)
+                .fetch(parkingTicket);
     }
 }
