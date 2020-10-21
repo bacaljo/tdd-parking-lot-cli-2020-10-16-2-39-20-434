@@ -8,7 +8,7 @@ import com.oocl.cultivation.strategy.ParkingStrategy;
 
 import java.util.List;
 
-import static java.util.Comparator.comparingDouble;
+import static java.util.Comparator.comparingInt;
 import static java.util.function.Predicate.not;
 
 public class MostEmptyParkingStrategy implements ParkingStrategy {
@@ -16,7 +16,7 @@ public class MostEmptyParkingStrategy implements ParkingStrategy {
     public ParkingTicket park(Car car, List<ParkingLot> parkingLotList) {
         return parkingLotList.stream()
                 .filter(not(ParkingLot::isFull))
-                .max(comparingDouble(ParkingLot::countEmptyPositions))
+                .max(comparingInt(ParkingLot::countEmptyPositions))
                 .orElseThrow(FullParkingException::new)
                 .park(car);
     }
